@@ -1,29 +1,24 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2025-07-10 14:03:40 -0400
-categories: jekyll update
+title: "Welcome, Columbia Africa Alumni!"
+date: 2025-07-10 09:00:00 -0400
+categories: alumni
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-Jekyll requires blog post files to be named according to the following format:
+Hello and **welcome** to the official Columbia University Africa Alumni blog! 🎓
 
-`YEAR-MONTH-DAY-title.MARKUP`
+This space is dedicated to:
 
-Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+- **Fostering conversation**: Share your insights, questions, and experiences.  
+- **Driving solutions**: Collaborate on initiatives that support our alumni community and the broader continent.  
+- **Strengthening networking**: Connect with fellow alumni for mentorship, professional growth, and local chapter events.
 
-Jekyll also offers powerful support for code snippets:
+We encourage you to:
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+1. **Join the discussion** under each post—your voice matters.  
+2. **Contribute articles** or event recaps by visiting the **/admin/** page.  
+3. **Stay informed** on upcoming meetups, webinars, and volunteer opportunities.
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+Together, we can leverage our collective knowledge and network for positive impact. Thank you for being part of Columbia’s Africa Alumni community—let’s make great things happen!
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+— The Columbia University Africa Alumni Association
