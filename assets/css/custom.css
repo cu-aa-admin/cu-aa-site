@@ -1,17 +1,83 @@
-/* assets/css/custom.css */
+:root {
+  --dark-blue: #012169;
+  --medium-blue: #009EFF;
+  --light-blue: #6CACE4;
+  --white: #FFFFFF;
+  --magenta: #D4285B;
+  --turquoise: #259B9A;
+  --purple: #7B2A8D;
+}
 
-/* Header background in a soft Columbia blue */
+body {
+  background-color: var(--white);
+  color: var(--dark-blue);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .site-header {
-  background-color: #C4D8E2;
+  background-color: var(--dark-blue);
+  padding: 1rem 0;
 }
 
-/* Links (site title and nav) in deep Columbia blue */
-.site-title a,
+.site-title a {
+  color: var(--white);
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
 .site-nav__link {
-  color: #00356B;
+  color: var(--white);
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-/* Underline on hover for better UX */
 .site-nav__link:hover {
-  text-decoration: underline;
+  color: var(--medium-blue);
+}
+
+.landing {
+  max-width: 700px;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.landing h2 {
+  color: var(--dark-blue);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.landing p,
+.landing li {
+  color: var(--dark-blue);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.landing ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.landing li {
+  margin: 0.5rem 0;
+}
+
+.button {
+  display: inline-block;
+  background-color: var(--medium-blue);
+  color: var(--white) !important;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.button:hover {
+  background-color: var(--light-blue);
 }
