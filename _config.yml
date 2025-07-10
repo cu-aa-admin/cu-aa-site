@@ -1,53 +1,70 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# Columbia University Africa Alumni Site Configuration
 
 title: "Columbia University Africa Alumni"
-email: your-email@example.com
+short_title: "CU-AA"
+email: info@cu-aa.org
 description: >-
-  Official site of the Columbia University Africa Alumni Association.
-baseurl: "" # the subpath of your site, e.g. /blog
+  Empowering African leaders through mentorship and community. 
+  Join 90+ Columbia University alumni building Africa's future.
+baseurl: ""
 url: "https://cu-aa.org"
-twitter_username:
-github_username:
+twitter_username: CU_AfricaAlumni
+linkedin_url: "https://linkedin.com/company/cu-africa-alumni"
+
+# SEO and Social
+social:
+  name: Columbia University Africa Alumni
+  links:
+    - https://twitter.com/CU_AfricaAlumni
+    - https://linkedin.com/company/cu-africa-alumni
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: About
+    url: /about/
+  - title: Programs
+    url: /programs/
+    dropdown:
+      - title: Mentorship Program
+        url: /programs/mentorship/
+      - title: Leadership Development
+        url: /programs/leadership/
+  - title: Get Involved
+    url: /get-involved/
+  - title: Blog
+    url: /blog/
+  - title: Contact
+    url: /contact/
 
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# Performance
+sass:
+  style: compressed
+
+# Collections
+collections:
+  programs:
+    output: true
+    permalink: /programs/:name/
+  
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "CU-AA Team"
+  - scope:
+      path: ""
+      type: "programs"
+    values:
+      layout: "program"
