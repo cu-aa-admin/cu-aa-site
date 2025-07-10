@@ -1,0 +1,17 @@
+/* assets/css/custom.css */
+
+/* Header background in a soft Columbia blue */
+.site-header {
+  background-color: #C4D8E2;
+}
+
+/* Links (site title and nav) in deep Columbia blue */
+.site-title a,
+.site-nav__link {
+  color: #00356B;
+}
+
+/* Underline on hover for better UX */
+.site-nav__link:hover {
+  text-decoration: underline;
+}

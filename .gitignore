@@ -3,3 +3,10 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+# macOS
+.DS_Store
+
+# Don’t commit the OAuth proxy node app in this repo
+netlify-cms-oauth-provider-node/
+.env
+*.log
