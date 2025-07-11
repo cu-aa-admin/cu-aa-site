@@ -3,179 +3,307 @@ layout: default
 ---
 
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero hero-home">
   <div class="container">
     <div class="hero-content">
-      <h1>Building Africa's Next Generation of Leaders</h1>
-      <p class="hero-subtitle">Join 90+ Columbia University alumni empowering African leaders through mentorship, education, and community impact</p>
+      <h1>Welcome to Columbia University Africa Alumni</h1>
+      <p class="hero-subtitle">Connecting Columbia alumni across Africa to discuss challenges, share solutions, and build a stronger continent together</p>
       <div class="hero-buttons">
-        <a href="/programs/mentorship/" class="btn btn-primary">Join Our Programs</a>
-        <a href="/about/" class="btn btn-secondary">Learn More</a>
+        <a href="/about/" class="btn btn-primary">Learn About Us</a>
+        <a href="/programs/mentorship/" class="btn btn-secondary">Join Our Programs</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Stats Section -->
+<!-- Introduction Section -->
 <section class="section">
   <div class="container">
-    <h2 class="section-title">Our Impact</h2>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">90+</div>
-        <div class="stat-label">Active Alumni</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">23</div>
-        <div class="stat-label">Leaders Trained</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">12</div>
-        <div class="stat-label">Countries Reached</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">4</div>
-        <div class="stat-label">Active Programs</div>
-      </div>
+    <div class="intro-content">
+      <h2 class="section-title">Building Bridges Across Africa</h2>
+      <p class="intro-text">
+        We are a vibrant community of Columbia University alumni dedicated to addressing Africa's challenges through 
+        collaborative dialogue, mentorship, and action. Our platform brings together diverse voices from across the 
+        continent to share experiences, propose solutions, and create lasting impact.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- Programs Section -->
+<!-- Latest Blog Posts -->
 <section class="section" style="background-color: #f8f9fa;">
   <div class="container">
-    <h2 class="section-title">Our Programs</h2>
-    <div class="card-grid">
-      <div class="card">
-        <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-        </svg>
-        <h3>Mentorship & Coaching</h3>
-        <p>Connect with experienced Columbia alumni for guidance on career development, leadership skills, and personal growth through our structured mentorship program.</p>
-        <a href="/mcp.html" class="btn-link">Learn more →</a>
-      </div>
-      
-      <div class="card">
-        <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-        </svg>
-        <h3>Leadership Development</h3>
-        <p>Build essential leadership competencies through workshops, seminars, and hands-on projects designed to create impact in African communities.</p>
-        <a href="/programs/leadership/" class="btn-link">Learn more →</a>
-      </div>
-      
-      <div class="card">
-        <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-        </svg>
-        <h3>Community Service</h3>
-        <p>Engage in meaningful projects that address critical challenges across Africa, from education to healthcare, technology to sustainability.</p>
-        <a href="/programs/community/" class="btn-link">Learn more →</a>
-      </div>
+    <h2 class="section-title">Latest Discussions & Insights</h2>
+    <div class="blog-grid">
+      {% for post in site.posts limit:6 %}
+        <article class="blog-card">
+          {% if post.image %}
+            <div class="blog-card-image">
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+            </div>
+          {% endif %}
+          <div class="blog-card-content">
+            <div class="blog-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%B %-d, %Y" }}
+              </time>
+              {% if post.categories %}
+                <span class="blog-category">{{ post.categories | first }}</span>
+              {% endif %}
+            </div>
+            <h3 class="blog-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <p class="blog-excerpt">
+              {{ post.excerpt | strip_html | truncate: 160 }}
+            </p>
+            <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
+          </div>
+        </article>
+      {% endfor %}
     </div>
+    
+    {% if site.posts.size == 0 %}
+      <div class="empty-state">
+        <h3>Join the Conversation</h3>
+        <p>We're just getting started! Check back soon for insightful discussions about Africa's future.</p>
+      </div>
+    {% endif %}
+    
+    {% if site.posts.size > 6 %}
+      <div class="blog-cta">
+        <a href="/blog/" class="btn btn-primary">View All Posts</a>
+      </div>
+    {% endif %}
   </div>
 </section>
 
-<!-- Mission Section -->
+<!-- Quick Links Section -->
 <section class="section">
   <div class="container">
-    <div class="mission-content">
-      <h2 class="section-title">Our Mission</h2>
-      <div class="mission-grid">
-        <div class="mission-card">
-          <h3>🎯 Empowering Leaders</h3>
-          <p>We identify and nurture emerging African leaders, providing them with the tools, networks, and guidance needed to drive positive change in their communities.</p>
-        </div>
-        <div class="mission-card">
-          <h3>🤝 Building Bridges</h3>
-          <p>We connect Columbia's global alumni network with Africa's brightest minds, fostering collaboration and knowledge exchange across continents.</p>
-        </div>
-        <div class="mission-card">
-          <h3>🌍 Creating Impact</h3>
-          <p>Through structured programs and community initiatives, we're building a sustainable ecosystem for African development and innovation.</p>
-        </div>
+    <h2 class="section-title">Get Involved</h2>
+    <div class="quick-links-grid">
+      <div class="quick-link-card">
+        <h3>🤝 Join the Discussion</h3>
+        <p>Share your perspectives on Africa's challenges and opportunities in our community blog.</p>
+        <a href="/blog/" class="btn-link">Explore Topics →</a>
+      </div>
+      
+      <div class="quick-link-card">
+        <h3>🌟 Mentorship Program</h3>
+        <p>Connect with experienced alumni or guide the next generation of African leaders.</p>
+        <a href="/programs/mentorship/" class="btn-link">Learn More →</a>
+      </div>
+      
+      <div class="quick-link-card">
+        <h3>📅 Upcoming Events</h3>
+        <p>Join our webinars, meetups, and discussions on pressing African issues.</p>
+        <a href="/events/" class="btn-link">View Calendar →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Blog Preview Section -->
-<section class="section" style="background-color: #f8f9fa;">
+<!-- Newsletter Section -->
+<section class="section newsletter-section">
   <div class="container">
-    <h2 class="section-title">Latest Updates</h2>
-    <p style="text-align: center; margin-bottom: 2rem;">Stay connected with news, stories, and insights from our community</p>
-    <div style="text-align: center;">
-      <a href="{{ '/blog/' | relative_url }}" class="btn btn-primary">Explore the Blog</a>
-    </div>
-  </div>
-</section>
-
-<!-- Call to Action -->
-<section class="section cta-section">
-  <div class="container">
-    <div class="cta-content">
-      <h2 class="section-title">Ready to Make a Difference?</h2>
-      <p>Whether you're a Columbia alumnus looking to give back or a young African leader seeking mentorship, there's a place for you in our community.</p>
-      <div class="hero-buttons">
-        <a href="/about/" class="btn btn-primary">Get Involved</a>
-        <a href="mailto:info@cu-aa.org" class="btn btn-secondary">Contact Us</a>
-      </div>
+    <div class="newsletter-content">
+      <h2>Stay Connected</h2>
+      <p>Get weekly updates on discussions, events, and opportunities from our alumni network</p>
+      <form class="newsletter-form" action="/subscribe" method="post">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
     </div>
   </div>
 </section>
 
 <style>
-/* Additional styles for the landing page */
-.btn-link {
+/* Homepage specific styles */
+.hero-home {
+  background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+  padding: 4rem 0;
+}
+
+.intro-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-text {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--text-light);
+}
+
+/* Blog Grid */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.blog-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.blog-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blog-card-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.blog-category {
+  background: var(--columbia-light-blue);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.blog-title {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.blog-title a {
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.blog-title a:hover {
+  color: var(--columbia-blue);
+}
+
+.blog-excerpt {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.read-more {
   color: var(--columbia-blue);
   text-decoration: none;
   font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  margin-top: 1rem;
   transition: var(--transition);
 }
 
-.btn-link:hover {
+.read-more:hover {
   transform: translateX(4px);
 }
 
-.mission-grid {
+.blog-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* Quick Links */
+.quick-links-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
-.mission-card {
+.quick-link-card {
   text-align: center;
   padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
 }
 
-.mission-card h3 {
+.quick-link-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.quick-link-card h3 {
   color: var(--columbia-blue);
   margin-bottom: 1rem;
-  font-size: 1.5rem;
 }
 
-.cta-section {
+/* Newsletter Section */
+.newsletter-section {
   background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
   color: white;
 }
 
-.cta-content {
+.newsletter-content {
   text-align: center;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
-.cta-content h2 {
+.newsletter-content h2 {
   color: white;
+  margin-bottom: 1rem;
 }
 
-.cta-content p {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
+.newsletter-form {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+}
+
+.newsletter-form button {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .newsletter-form {
+    flex-direction: column;
+  }
 }
 </style>

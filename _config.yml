@@ -24,6 +24,8 @@ navigation:
     url: /
   - title: About
     url: /about/
+  - title: Blog
+    url: /blog/
   - title: Programs
     url: /programs/
     dropdown:
@@ -33,8 +35,6 @@ navigation:
         url: /programs/leadership/
   - title: Get Involved
     url: /get-involved/
-  - title: Blog
-    url: /blog/
   - title: Contact
     url: /contact/
 
