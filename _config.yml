@@ -37,7 +37,8 @@ navigation:
     url: /get-involved/
   - title: Contact
     url: /contact/
-
+  - title: Contribute
+    url: /contribute/
 # Build settings
 # theme: minima
 plugins:
