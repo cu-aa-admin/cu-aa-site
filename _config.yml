@@ -26,6 +26,8 @@ navigation:
     url: /about/
   - title: Blog
     url: /blog/
+  - title: Contribute
+    url: /contribute/
   - title: Programs
     url: /programs/
     dropdown:
@@ -37,8 +39,6 @@ navigation:
     url: /get-involved/
   - title: Contact
     url: /contact/
-  - title: Contribute
-    url: /contribute/
 # Build settings
 # theme: minima
 plugins:
