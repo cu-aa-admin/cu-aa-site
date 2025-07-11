@@ -68,3 +68,11 @@ defaults:
       type: "programs"
     values:
       layout: "program"
+
+exclude:
+  - netlify-cms-oauth-provider-node/
+  - node_modules/
+  - vendor/
+  - .bundle/
+  - Gemfile
+  - Gemfile.lock

@@ -2,11 +2,7 @@
   <div class="header-wrapper">
     <div class="site-identity">
       <a href="{{ "/" | relative_url }}" class="site-logo">
-        <img src="{{ "/assets/images/logo.png" | relative_url }}" alt="Columbia University Alumni Logo" class="logo-icon">
-        <div class="site-name">
-          <span class="site-title">{{ site.title }}</span>
-          <span class="site-tagline">Empowering African Leaders</span>
-        </div>
+        <img src="{{ "/assets/images/logo.png" | relative_url }}" alt="Columbia University Africa Alumni" class="logo-icon">
       </a>
     </div>
 
@@ -77,29 +73,5 @@
     mobileToggle.setAttribute('aria-expanded', !isOpen);
     mobileNav.setAttribute('aria-hidden', isOpen);
     body.classList.toggle('mobile-menu-open');
-  });
-
-  // Close mobile menu on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && body.classList.contains('mobile-menu-open')) {
-      mobileToggle.setAttribute('aria-expanded', 'false');
-      mobileNav.setAttribute('aria-hidden', 'true');
-      body.classList.remove('mobile-menu-open');
-    }
-  });
-
-  // Handle dropdown menus on desktop
-  const dropdowns = document.querySelectorAll('.dropdown');
-  dropdowns.forEach(dropdown => {
-    const link = dropdown.querySelector('.nav-link');
-    const menu = dropdown.querySelector('.dropdown-menu');
-    
-    // Keyboard navigation
-    link.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        dropdown.classList.toggle('open');
-      }
-    });
   });
 </script>
