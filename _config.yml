@@ -42,8 +42,6 @@ navigation:
         url: /programs/community/
       - title: Events & Workshops
         url: /programs/events/
-  - title: Get Involved
-    url: /get-involved/
   - title: Contact
     url: /contact/
 
