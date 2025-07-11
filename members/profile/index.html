@@ -1,0 +1,990 @@
+---
+layout: default
+title: "My Profile"
+permalink: /members/profile/
+---
+
+<div class="profile-container">
+  <!-- Auth Protection -->
+  <div id="authRequired" style="display: none;">
+    <div class="auth-notice">
+      <h2>🔒 Member Access Required</h2>
+      <p>You need to be logged in to access your profile.</p>
+      <a href="/login/" class="btn btn-primary">Login to Continue</a>
+    </div>
+  </div>
+
+  <!-- Profile Content -->
+  <div id="profileContent" style="display: none;">
+    <div class="profile-header">
+      <div class="profile-photo-section">
+        <div class="profile-photo" id="profilePhoto">
+          <!-- Initials will be inserted here -->
+        </div>
+        <button onclick="changePhoto()" class="btn btn-secondary btn-sm">Change Photo</button>
+      </div>
+      
+      <div class="profile-info">
+        <h1 id="profileName"></h1>
+        <p class="profile-title" id="profileTitle"></p>
+        <div class="profile-badges">
+          <span class="badge" id="schoolBadge"></span>
+          <span class="badge" id="roleBadge"></span>
+        </div>
+      </div>
+      
+      <div class="profile-actions">
+        <button onclick="editProfile()" class="btn btn-primary">✏️ Edit Profile</button>
+        <button onclick="shareProfile()" class="btn btn-secondary">🔗 Share Profile</button>
+      </div>
+    </div>
+
+    <!-- Profile Navigation Tabs -->
+    <div class="profile-tabs">
+      <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+      <button class="tab-btn" onclick="showTab('activity')">Activity</button>
+      <button class="tab-btn" onclick="showTab('contributions')">Contributions</button>
+      <button class="tab-btn" onclick="showTab('settings')">Settings</button>
+    </div>
+
+    <!-- Overview Tab -->
+    <div id="overviewTab" class="tab-content active">
+      <div class="profile-grid">
+        <div class="profile-section">
+          <h3>📋 About Me</h3>
+          <div class="editable-content" id="bioSection">
+            <p id="profileBio">Add your bio here to let other alumni know about your background, interests, and expertise.</p>
+            <button onclick="editBio()" class="edit-btn">Edit Bio</button>
+          </div>
+        </div>
+
+        <div class="profile-section">
+          <h3>🎓 Education</h3>
+          <div class="education-info">
+            <div class="education-item">
+              <h4>Columbia University</h4>
+              <p><span id="educationSchool"></span> • Class of <span id="educationYear"></span></p>
+              <p class="education-details" id="educationDetails">Add details about your Columbia experience, majors, activities, etc.</p>
+            </div>
+          </div>
+          <button onclick="editEducation()" class="edit-btn">Edit Education</button>
+        </div>
+
+        <div class="profile-section">
+          <h3>💼 Professional</h3>
+          <div class="professional-info">
+            <div class="job-item">
+              <h4 id="currentRole">Current Role</h4>
+              <p id="currentCompany">Company Name</p>
+              <p id="jobLocation">Location</p>
+              <p class="job-description" id="jobDescription">Add description of your current role and responsibilities.</p>
+            </div>
+          </div>
+          <button onclick="editProfessional()" class="edit-btn">Edit Professional Info</button>
+        </div>
+
+        <div class="profile-section">
+          <h3>🌍 Location & Contact</h3>
+          <div class="contact-info">
+            <p><strong>📍 Location:</strong> <span id="profileLocation">Not specified</span></p>
+            <p><strong>📧 Email:</strong> <span id="profileEmail"></span></p>
+            <p><strong>🔗 LinkedIn:</strong> <span id="profileLinkedIn">Not connected</span></p>
+            <p><strong>🌐 Website:</strong> <span id="profileWebsite">Not specified</span></p>
+          </div>
+          <button onclick="editContact()" class="edit-btn">Edit Contact Info</button>
+        </div>
+
+        <div class="profile-section">
+          <h3>🏷️ Interests & Expertise</h3>
+          <div class="tags-section">
+            <div class="interest-tags" id="interestTags">
+              <span class="tag">Technology</span>
+              <span class="tag">Finance</span>
+              <span class="tag">Startups</span>
+            </div>
+          </div>
+          <button onclick="editInterests()" class="edit-btn">Edit Interests</button>
+        </div>
+
+        <div class="profile-section">
+          <h3>📊 Profile Stats</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-number">15</span>
+              <span class="stat-label">Profile Views</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">8</span>
+              <span class="stat-label">Connections</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">3</span>
+              <span class="stat-label">Posts Written</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">92%</span>
+              <span class="stat-label">Profile Complete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Tab -->
+    <div id="activityTab" class="tab-content">
+      <div class="activity-section">
+        <h3>📈 Recent Activity</h3>
+        <div class="activity-timeline">
+          <div class="activity-item">
+            <div class="activity-icon">📝</div>
+            <div class="activity-content">
+              <h4>Published a new post</h4>
+              <p>"The Future of Fintech in East Africa"</p>
+              <span class="activity-time">2 days ago</span>
+            </div>
+          </div>
+          
+          <div class="activity-item">
+            <div class="activity-icon">💬</div>
+            <div class="activity-content">
+              <h4>Commented on discussion</h4>
+              <p>"Economic Recovery Strategies" in Economics stream</p>
+              <span class="activity-time">5 days ago</span>
+            </div>
+          </div>
+          
+          <div class="activity-item">
+            <div class="activity-icon">🤝</div>
+            <div class="activity-content">
+              <h4>Connected with new alumni</h4>
+              <p>Sarah Okafor (SIPA '18) and Michael Chen (Business '15)</p>
+              <span class="activity-time">1 week ago</span>
+            </div>
+          </div>
+          
+          <div class="activity-item">
+            <div class="activity-icon">🎯</div>
+            <div class="activity-content">
+              <h4>Joined mentorship program</h4>
+              <p>Now mentoring junior alumni in technology</p>
+              <span class="activity-time">2 weeks ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contributions Tab -->
+    <div id="contributionsTab" class="tab-content">
+      <div class="contributions-section">
+        <h3>📚 My Contributions</h3>
+        
+        <div class="contribution-category">
+          <h4>Blog Posts</h4>
+          <div class="contribution-list">
+            <div class="contribution-item">
+              <h5>The Future of Fintech in East Africa</h5>
+              <p>Published in Technology stream • 156 views • 8 comments</p>
+              <span class="contribution-date">March 15, 2024</span>
+            </div>
+            <div class="contribution-item">
+              <h5>Climate Policy and Economic Growth</h5>
+              <p>Published in Economics stream • 89 views • 5 comments</p>
+              <span class="contribution-date">February 28, 2024</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contribution-category">
+          <h4>Discord Participation</h4>
+          <div class="discord-stats">
+            <div class="discord-stat">
+              <span class="stat-number">45</span>
+              <span class="stat-label">Messages Sent</span>
+            </div>
+            <div class="discord-stat">
+              <span class="stat-number">3</span>
+              <span class="stat-label">Active Channels</span>
+            </div>
+            <div class="discord-stat">
+              <span class="stat-number">12</span>
+              <span class="stat-label">Discussions Started</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contribution-category">
+          <h4>Mentorship</h4>
+          <div class="mentorship-info">
+            <p><strong>Mentoring:</strong> 2 junior alumni</p>
+            <p><strong>Focus Areas:</strong> Technology, Career Transition, Startups</p>
+            <p><strong>Total Sessions:</strong> 8 completed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div id="settingsTab" class="tab-content">
+      <div class="settings-section">
+        <h3>⚙️ Account Settings</h3>
+        
+        <div class="setting-group">
+          <h4>Privacy Settings</h4>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="profileVisibility" checked>
+              Make my profile visible to other alumni
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="emailVisible" checked>
+              Show my email to other members
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="linkedinVisible" checked>
+              Show my LinkedIn profile
+            </label>
+          </div>
+        </div>
+        
+        <div class="setting-group">
+          <h4>Notification Settings</h4>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="emailNotifications" checked>
+              Email notifications for new messages
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="weeklyDigest" checked>
+              Weekly activity digest
+            </label>
+          </div>
+          <div class="setting-item">
+            <label>
+              <input type="checkbox" id="eventReminders" checked>
+              Event reminders
+            </label>
+          </div>
+        </div>
+        
+        <div class="setting-group">
+          <h4>Account Actions</h4>
+          <button onclick="changePassword()" class="btn btn-secondary">Change Password</button>
+          <button onclick="downloadData()" class="btn btn-secondary">Download My Data</button>
+          <button onclick="deleteAccount()" class="btn btn-danger">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.auth-notice {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.profile-header {
+  background: linear-gradient(135deg, #1a365d 0%, #2d5aa0 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile-photo-section {
+  text-align: center;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 250px;
+}
+
+.profile-info h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+}
+
+.profile-title {
+  margin: 0 0 1rem 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+.profile-badges {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.profile-tabs {
+  display: flex;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tab-btn.active {
+  background: #2d5aa0;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.profile-section {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.profile-section h3 {
+  margin: 0 0 1rem 0;
+  color: #1a365d;
+  font-size: 1.1rem;
+}
+
+.editable-content {
+  position: relative;
+}
+
+.edit-btn {
+  background: #f8f9fa;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.edit-btn:hover {
+  background: #e9ecef;
+}
+
+.education-item,
+.job-item {
+  border-left: 3px solid #2d5aa0;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.education-item h4,
+.job-item h4 {
+  margin: 0 0 0.25rem 0;
+  color: #1a365d;
+}
+
+.education-details,
+.job-description {
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.contact-info p {
+  margin: 0.5rem 0;
+  color: #666;
+}
+
+.interest-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d5aa0;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Removed empty .activity-timeline ruleset */
+
+.activity-item {
+  margin-bottom: 1rem;
+}
+
+.activity-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  background: #2d5aa0;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.activity-content h4 {
+  margin: 0 0 0.25rem 0;
+  color: #1a365d;
+  font-size: 1rem;
+}
+
+.activity-content p {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.contribution-category {
+  margin-bottom: 2rem;
+}
+
+.contribution-category h4 {
+  color: #1a365d;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.contribution-item {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.contribution-item h5 {
+  margin: 0 0 0.5rem 0;
+  color: #1a365d;
+}
+
+.contribution-item p {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.contribution-date {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.discord-stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.discord-stat {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.setting-group {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.setting-group h4 {
+  margin: 0 0 1rem 0;
+  color: #1a365d;
+}
+
+.setting-item {
+  margin-bottom: 1rem;
+}
+
+.setting-item label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #2d5aa0;
+  color: white;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: white;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-tabs {
+    flex-direction: column;
+  }
+  
+  .discord-stats {
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+// Auth protection and profile initialization
+document.addEventListener('DOMContentLoaded', function() {
+  const user = localStorage.getItem('cuaa_user');
+  
+  if (!user) {
+    document.getElementById('authRequired').style.display = 'block';
+    return;
+  }
+  
+  const userData = JSON.parse(user);
+  document.getElementById('profileContent').style.display = 'block';
+  
+  // Populate profile data
+  populateProfile(userData);
+  
+  // Set up settings from localStorage
+  loadSettings();
+});
+
+function populateProfile(userData) {
+  // Basic info
+  const initials = userData.name.split(' ').map(n => n[0]).join('');
+  document.getElementById('profilePhoto').textContent = initials;
+  document.getElementById('profileName').textContent = userData.name;
+  document.getElementById('profileTitle').textContent = 'Alumni Member'; // Can be customized later
+  document.getElementById('profileEmail').textContent = userData.email;
+  
+  // Badges
+  document.getElementById('schoolBadge').textContent = `${userData.school} '${userData.gradYear}`;
+  document.getElementById('roleBadge').textContent = userData.role;
+  
+  // Education section
+  document.getElementById('educationSchool').textContent = getFullSchoolName(userData.school);
+  document.getElementById('educationYear').textContent = userData.gradYear;
+  
+  // Load saved profile data from localStorage
+  const savedProfile = localStorage.getItem('cuaa_profile_' + userData.email);
+  if (savedProfile) {
+    const profileData = JSON.parse(savedProfile);
+    
+    // Populate saved data
+    if (profileData.bio) {
+      document.getElementById('profileBio').textContent = profileData.bio;
+    }
+    if (profileData.currentRole) {
+      document.getElementById('currentRole').textContent = profileData.currentRole;
+    }
+    if (profileData.currentCompany) {
+      document.getElementById('currentCompany').textContent = profileData.currentCompany;
+    }
+    if (profileData.jobLocation) {
+      document.getElementById('jobLocation').textContent = profileData.jobLocation;
+    }
+    if (profileData.jobDescription) {
+      document.getElementById('jobDescription').textContent = profileData.jobDescription;
+    }
+    if (profileData.location) {
+      document.getElementById('profileLocation').textContent = profileData.location;
+    }
+    if (profileData.linkedin) {
+      document.getElementById('profileLinkedIn').innerHTML = `<a href="${profileData.linkedin}" target="_blank">View Profile</a>`;
+    }
+    if (profileData.website) {
+      document.getElementById('profileWebsite').innerHTML = `<a href="${profileData.website}" target="_blank">${profileData.website}</a>`;
+    }
+    if (profileData.educationDetails) {
+      document.getElementById('educationDetails').textContent = profileData.educationDetails;
+    }
+  }
+}
+
+function getFullSchoolName(school) {
+  const schoolNames = {
+    // Main Schools
+    'CC': 'Columbia College',
+    'SEAS': 'Engineering & Applied Science',
+    'GS': 'General Studies',
+    'Business': 'Business School',
+    'Law': 'Law School',
+    'Medicine': 'Vagelos College of Physicians and Surgeons',
+    'SIPA': 'International & Public Affairs',
+    'Journalism': 'Journalism School',
+    'Teachers': 'Teachers College',
+    
+    // Additional Schools
+    'SPS': 'School of Professional Studies',
+    'Climate': 'Columbia Climate School',
+    'Dental': 'College of Dental Medicine',
+    'GSAPP': 'Graduate School of Architecture, Planning and Preservation',
+    'GSAS': 'Graduate School of Arts and Sciences',
+    'PublicHealth': 'Mailman School of Public Health',
+    'Arts': 'School of the Arts',
+    'Nursing': 'School of Nursing',
+    'SocialWork': 'School of Social Work',
+    
+    // Affiliate Schools
+    'Barnard': 'Barnard College',
+    'JTS': 'Jewish Theological Seminary',
+    'UTS': 'Union Theological Seminary'
+  };
+  return schoolNames[school] || school;
+}
+
+function showTab(tabName) {
+  // Hide all tabs
+  const tabs = document.querySelectorAll('.tab-content');
+  tabs.forEach(tab => tab.classList.remove('active'));
+  
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn => btn.classList.remove('active'));
+  
+  // Show selected tab
+  document.getElementById(tabName + 'Tab').classList.add('active');
+  event.target.classList.add('active');
+}
+
+function editProfile() {
+  alert('Profile editing coming soon! This will open a detailed edit form.');
+}
+
+function editBio() {
+  const currentBio = document.getElementById('profileBio').textContent;
+  const newBio = prompt('Edit your bio:', currentBio);
+  
+  if (newBio !== null && newBio.trim() !== '') {
+    document.getElementById('profileBio').textContent = newBio;
+    saveProfileData('bio', newBio);
+  }
+}
+
+function editEducation() {
+  const currentDetails = document.getElementById('educationDetails').textContent;
+  const newDetails = prompt('Add details about your Columbia experience:', currentDetails);
+  
+  if (newDetails !== null && newDetails.trim() !== '') {
+    document.getElementById('educationDetails').textContent = newDetails;
+    saveProfileData('educationDetails', newDetails);
+  }
+}
+
+function editProfessional() {
+  const currentRole = prompt('Current Role:', document.getElementById('currentRole').textContent);
+  const currentCompany = prompt('Company:', document.getElementById('currentCompany').textContent);
+  const jobLocation = prompt('Location:', document.getElementById('jobLocation').textContent);
+  const jobDescription = prompt('Job Description:', document.getElementById('jobDescription').textContent);
+  
+  if (currentRole) {
+    document.getElementById('currentRole').textContent = currentRole;
+    saveProfileData('currentRole', currentRole);
+  }
+  if (currentCompany) {
+    document.getElementById('currentCompany').textContent = currentCompany;
+    saveProfileData('currentCompany', currentCompany);
+  }
+  if (jobLocation) {
+    document.getElementById('jobLocation').textContent = jobLocation;
+    saveProfileData('jobLocation', jobLocation);
+  }
+  if (jobDescription) {
+    document.getElementById('jobDescription').textContent = jobDescription;
+    saveProfileData('jobDescription', jobDescription);
+  }
+}
+
+function editContact() {
+  const location = prompt('Location:', document.getElementById('profileLocation').textContent);
+  const linkedin = prompt('LinkedIn URL:', '');
+  const website = prompt('Website URL:', '');
+  
+  if (location) {
+    document.getElementById('profileLocation').textContent = location;
+    saveProfileData('location', location);
+  }
+  if (linkedin) {
+    document.getElementById('profileLinkedIn').innerHTML = `<a href="${linkedin}" target="_blank">View Profile</a>`;
+    saveProfileData('linkedin', linkedin);
+  }
+  if (website) {
+    document.getElementById('profileWebsite').innerHTML = `<a href="${website}" target="_blank">${website}</a>`;
+    saveProfileData('website', website);
+  }
+}
+
+function editInterests() {
+  alert('Interest editing coming soon! This will allow you to add/remove tags.');
+}
+
+function shareProfile() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({
+      title: 'My Alumni Profile',
+      url: url
+    });
+  } else {
+    navigator.clipboard.writeText(url);
+    alert('Profile URL copied to clipboard!');
+  }
+}
+
+function changePhoto() {
+  alert('Photo upload coming soon! For now, we use initials.');
+}
+
+function changePassword() {
+  const currentPassword = prompt('Enter current password:');
+  const newPassword = prompt('Enter new password:');
+  const confirmPassword = prompt('Confirm new password:');
+  
+  if (newPassword && newPassword === confirmPassword) {
+    alert('Password changed successfully!');
+    // In real implementation, this would call an API
+  } else {
+    alert('Passwords do not match or were not provided.');
+  }
+}
+
+function downloadData() {
+  const userData = JSON.parse(localStorage.getItem('cuaa_user'));
+  const profileData = JSON.parse(localStorage.getItem('cuaa_profile_' + userData.email) || '{}');
+  
+  const data = {
+    user: userData,
+    profile: profileData,
+    exportDate: new Date().toISOString()
+  };
+  
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'cuaa-profile-data.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function deleteAccount() {
+  const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+  
+  if (confirmation) {
+    const doubleConfirmation = prompt('Type "DELETE" to confirm account deletion:');
+    
+    if (doubleConfirmation === 'DELETE') {
+      // Clear all user data
+      const userData = JSON.parse(localStorage.getItem('cuaa_user'));
+      localStorage.removeItem('cuaa_user');
+      localStorage.removeItem('cuaa_profile_' + userData.email);
+      localStorage.removeItem('cuaa_settings_' + userData.email);
+      
+      alert('Account deleted successfully.');
+      window.location.href = '/';
+    } else {
+      alert('Account deletion cancelled.');
+    }
+  }
+}
+
+function saveProfileData(field, value) {
+  const userData = JSON.parse(localStorage.getItem('cuaa_user'));
+  const profileKey = 'cuaa_profile_' + userData.email;
+  const existingProfile = JSON.parse(localStorage.getItem(profileKey) || '{}');
+  
+  existingProfile[field] = value;
+  localStorage.setItem(profileKey, JSON.stringify(existingProfile));
+}
+
+function loadSettings() {
+  const userData = JSON.parse(localStorage.getItem('cuaa_user'));
+  const settingsKey = 'cuaa_settings_' + userData.email;
+  const settings = JSON.parse(localStorage.getItem(settingsKey) || '{}');
+  
+  // Apply saved settings
+  if (settings.profileVisibility !== undefined) {
+    document.getElementById('profileVisibility').checked = settings.profileVisibility;
+  }
+  if (settings.emailVisible !== undefined) {
+    document.getElementById('emailVisible').checked = settings.emailVisible;
+  }
+  if (settings.linkedinVisible !== undefined) {
+    document.getElementById('linkedinVisible').checked = settings.linkedinVisible;
+  }
+  if (settings.emailNotifications !== undefined) {
+    document.getElementById('emailNotifications').checked = settings.emailNotifications;
+  }
+  if (settings.weeklyDigest !== undefined) {
+    document.getElementById('weeklyDigest').checked = settings.weeklyDigest;
+  }
+  if (settings.eventReminders !== undefined) {
+    document.getElementById('eventReminders').checked = settings.eventReminders;
+  }
+  
+  // Add event listeners to save settings when changed
+  const settingInputs = document.querySelectorAll('#settingsTab input[type="checkbox"]');
+  settingInputs.forEach(input => {
+    input.addEventListener('change', saveSettings);
+  });
+}
+
+function saveSettings() {
+  const userData = JSON.parse(localStorage.getItem('cuaa_user'));
+  const settingsKey = 'cuaa_settings_' + userData.email;
+  
+  const settings = {
+    profileVisibility: document.getElementById('profileVisibility').checked,
+    emailVisible: document.getElementById('emailVisible').checked,
+    linkedinVisible: document.getElementById('linkedinVisible').checked,
+    emailNotifications: document.getElementById('emailNotifications').checked,
+    weeklyDigest: document.getElementById('weeklyDigest').checked,
+    eventReminders: document.getElementById('eventReminders').checked
+  };
+  
+  localStorage.setItem(settingsKey, JSON.stringify(settings));
+}
+</script>

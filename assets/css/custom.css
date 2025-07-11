@@ -355,7 +355,6 @@ body.mobile-menu-open {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('/assets/images/pattern.svg') repeat;
   opacity: 0.1;
 }
 
@@ -782,4 +781,14 @@ body.mobile-menu-open {
   .contribute-page h1 {
     font-size: 1.75rem;
   }
+}
+
+/* Gitter chat container */
+.chat-widget {
+  margin: 2rem auto;
+  max-width: 800px;
+  height: 600px;      /* give it more vertical space */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
 }

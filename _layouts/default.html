@@ -56,6 +56,13 @@
     {{ content }}
   </main>
 
+  {% comment %}
+    If this page sets `chat_room:` in its front-matter, include the Gitter widget here
+  {% endcomment %}
+  {% if page.chat_room %}
+    {% include chat.html room=page.chat_room %}
+  {% endif %}
+
   {% include footer.html %}
 
   <!-- Performance: Load non-critical JS after page load -->

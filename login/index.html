@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CU-AA Member Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2d5aa0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            color: #1a365d;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2d5aa0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: #2d5aa0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #1a365d;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success {
+            color: #059669;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .register-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .register-section h3 {
+            color: #1a365d;
+            margin-bottom: 1rem;
+        }
+
+        .register-section p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .logout-btn {
+            background: #dc2626;
+            margin-top: 1rem;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo">
+            <h1>👑 Columbia | Alumni</h1>
+            <p>Africa Alumni Network</p>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm">
+            <form id="authForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="your.email@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+                
+                <button type="submit" class="btn">Sign In</button>
+                <div class="error" id="error"></div>
+                <div class="success" id="success"></div>
+            </form>
+
+            <div class="register-section">
+                <h3>New Member?</h3>
+                <p>Columbia University alumni can register for access</p>
+                <button onclick="showRegister()" class="btn">Register as Alumni</button>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registerForm" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 1.5rem; color: #1a365d;">Alumni Registration</h2>
+            <form id="regForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" required placeholder="John Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="john.doe@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gradYear">Graduation Year</label>
+                    <input type="number" id="gradYear" required placeholder="2015" min="1960" max="2030">
+                </div>
+                
+                <div class="form-group">
+                    <label for="school">School/Department</label>
+                    <select id="school" required>
+                        <option value="">Select your school</option>
+                        <option value="CC">Columbia College</option>
+                        <option value="SEAS">Engineering & Applied Science</option>
+                        <option value="GS">General Studies</option>
+                        <option value="Business">Business School</option>
+                        <option value="Law">Law School</option>
+                        <option value="Medicine">Medical School</option>
+                        <option value="Journalism">Journalism School</option>
+                        <option value="SIPA">International & Public Affairs</option>
+                        <option value="Teachers">Teachers College</option>
+                        <option value="SPS">School of Professional Studies</option>
+                        <option value="Climate">Columbia Climate School</option>
+                        <option value="Dental">College of Dental Medicine</option>
+                        <option value="GSAPP">Graduate School of Architecture, Planning and Preservation</option>
+                        <option value="GSAS">Graduate School of Arts and Sciences</option>
+                        <option value="PublicHealth">Mailman School of Public Health</option>
+                        <option value="Arts">School of the Arts</option>
+                        <option value="Nursing">School of Nursing</option>
+                        <option value="SocialWork">School of Social Work</option>
+                        <option value="Barnard">Barnard College</option>
+                        <option value="JTS">Jewish Theological Seminary</option>
+                        <option value="UTS">Union Theological Seminary</option>
+                        <option value="Other">Other/Not Listed</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">Create Password</label>
+                    <input type="password" id="regPassword" required placeholder="Minimum 8 characters">
+                </div>
+                
+                <button type="submit" class="btn">Register</button>
+                <div class="error" id="regError"></div>
+                <div class="success" id="regSuccess"></div>
+            </form>
+
+            <div style="text-align: center; margin-top: 1rem;">
+                <button onclick="showLogin()" style="background: transparent; color: #2d5aa0; border: none; cursor: pointer;">
+                    Back to Login
+                </button>
+            </div>
+        </div>
+
+        <!-- Logged In View -->
+        <div id="loggedIn" style="display: none;">
+            <div class="user-info">
+                <h3>Welcome back!</h3>
+                <p id="userDisplayName"></p>
+                <p id="userEmail"></p>
+            </div>
+            
+            <button onclick="redirectToDiscord()" class="btn">
+                🎮 Join Discord Community
+            </button>
+            
+            <button onclick="redirectToDashboard()" class="btn" style="background: #059669; margin-top: 0.5rem;">
+                📊 Access Member Dashboard
+            </button>
+            
+            <button onclick="logout()" class="btn logout-btn">
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Predefined users (in production, this would be a secure backend)
+        const users = {
+            'admin@columbia-africa.org': {
+                password: 'admin123',
+                name: 'Admin User',
+                role: 'admin',
+                school: 'CC',
+                gradYear: '2010'
+            },
+            'john.doe@example.com': {
+                password: 'password123',
+                name: 'John Doe',
+                role: 'member',
+                school: 'SEAS',
+                gradYear: '2015'
+            }
+        };
+
+        // Check if user is already logged in
+        window.onload = function() {
+            const loggedInUser = localStorage.getItem('cuaa_user');
+            if (loggedInUser) {
+                const user = JSON.parse(loggedInUser);
+                showLoggedIn(user);
+            }
+        };
+
+        // Login form handler
+        document.getElementById('authForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+            const successDiv = document.getElementById('success');
+            
+            // Clear previous messages
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            // Check credentials
+            if (users[email] && users[email].password === password) {
+                const user = {
+                    email: email,
+                    name: users[email].name,
+                    role: users[email].role,
+                    school: users[email].school,
+                    gradYear: users[email].gradYear
+                };
+                
+                // Store in localStorage
+                localStorage.setItem('cuaa_user', JSON.stringify(user));
+                
+                successDiv.textContent = 'Login successful! Redirecting...';
+                successDiv.style.display = 'block';
+                
+                setTimeout(() => {
+                    showLoggedIn(user);
+                }, 1000);
+            } else {
+                errorDiv.textContent = 'Invalid email or password';
+                errorDiv.style.display = 'block';
+            }
+        });
+
+        // Registration form handler
+        document.getElementById('regForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const gradYear = document.getElementById('gradYear').value;
+            const school = document.getElementById('school').value;
+            const password = document.getElementById('regPassword').value;
+            const errorDiv = document.getElementById('regError');
+            const successDiv = document.getElementById('regSuccess');
+            
+            // Clear previous messages
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            // Basic validation
+            if (password.length < 8) {
+                errorDiv.textContent = 'Password must be at least 8 characters';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            if (users[email]) {
+                errorDiv.textContent = 'An account with this email already exists';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            // Add new user (in production, this would go to a backend)
+            users[email] = {
+                password: password,
+                name: name,
+                role: 'member',
+                school: school,
+                gradYear: gradYear
+            };
+            
+            successDiv.textContent = 'Registration successful! You can now login.';
+            successDiv.style.display = 'block';
+            
+            // Clear form
+            document.getElementById('regForm').reset();
+            
+            setTimeout(() => {
+                showLogin();
+            }, 2000);
+        });
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showLoggedIn(user) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loggedIn').style.display = 'block';
+            
+            document.getElementById('userDisplayName').textContent = user.name;
+            document.getElementById('userEmail').textContent = user.email;
+        }
+
+        function logout() {
+            localStorage.removeItem('cuaa_user');
+            document.getElementById('loggedIn').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            
+            // Clear form
+            document.getElementById('authForm').reset();
+        }
+
+        function redirectToDiscord() {
+            window.open('https://discord.gg/2h2HgWFJ', '_blank');
+        }
+
+        function redirectToDashboard() {
+            // Redirect to your member dashboard
+            window.location.href = '/members/dashboard/';
+        }
+
+        // Auth check function for other pages
+        function checkAuth() {
+            const user = localStorage.getItem('cuaa_user');
+            if (!user) {
+                window.location.href = '/login/';
+                return false;
+            }
+            return JSON.parse(user);
+        }
+
+        // Make checkAuth available globally
+        window.checkAuth = checkAuth;
+    </script>
+</body>
+</html>

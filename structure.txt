@@ -1,40 +1,111 @@
 .
 ├── _config.yml
 ├── _includes
+│   ├── chat.html
+│   ├── footer.html
 │   └── header.html
 ├── _layouts
-│   └── default_layout.html
+│   ├── default.html
+│   ├── page.html
+│   └── post.html
 ├── _posts
 │   └── 2025-07-10-welcome-to-jekyll.markdown
 ├── _site
 │   ├── 404.html
 │   ├── about
 │   │   └── index.html
+│   ├── admin
+│   │   └── index.html
+│   ├── alumni
+│   │   └── 2025
 │   ├── assets
-│   │   ├── main.css
-│   │   ├── main.css.map
-│   │   └── minima-social-icons.svg
+│   │   ├── css
+│   │   └── images
+│   ├── blog
+│   │   └── index.html
+│   ├── contact
+│   │   └── index.html
+│   ├── contribute
+│   │   └── index.html
+│   ├── CONTRIBUTING.md
+│   ├── contributors
+│   │   └── index.html
 │   ├── feed.xml
+│   ├── folder_structure.txt
 │   ├── index.html
-│   ├── jekyll
-│   │   └── update
 │   ├── LICENSE
-│   └── README.md
+│   ├── login
+│   │   └── index.html
+│   ├── members
+│   │   ├── dashboard
+│   │   ├── directory
+│   │   ├── opportunities
+│   │   └── profile
+│   ├── netlify.toml
+│   ├── programs
+│   │   └── mentorship
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   ├── streams
+│   │   ├── community
+│   │   ├── economics
+│   │   └── technology
+│   ├── structure.txt
+│   └── thank-you
+│       └── index.html
 ├── 404.html
 ├── about.markdown
+├── admin
+│   └── index.html
 ├── assets
 │   ├── css
 │   │   └── custom.css
 │   └── images
+│       ├── africa.svg
+│       ├── crown512x512.png
+│       ├── favicon-16x16.png
+│       ├── favicon-32x32.png
+│       ├── logo_small.png
 │       └── logo.png
 ├── blog
-│   └── index.md
+│   └── index.html
+├── contact
+│   └── index.html
+├── contribute.html
+├── CONTRIBUTING.md
+├── contributors.md
+├── folder_structure.txt
 ├── Gemfile
 ├── Gemfile.lock
 ├── index.markdown
 ├── LICENSE
-├── mcp.html
+├── login
+│   └── index.html
+├── members
+│   ├── dashboard
+│   │   └── index.html
+│   ├── directory
+│   │   └── index.html
+│   ├── opportunities
+│   │   └── index.html
+│   └── profile
+│       └── index.html
+├── netlify
+│   └── functions
+│       └── submit-blog-post.js
 ├── netlify-cms-oauth-provider-node
+│   ├── _site
+│   │   ├── examples
+│   │   ├── feed.xml
+│   │   ├── index.js
+│   │   ├── jest.config.js
+│   │   ├── lib
+│   │   ├── LICENSE
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   ├── server.js
+│   │   └── yarn.lock
 │   ├── examples
 │   │   ├── common
 │   │   ├── generic
@@ -745,7 +816,27 @@
 │   ├── README.md
 │   ├── server.js
 │   └── yarn.lock
+├── netlify.toml
+├── node_modules
+│   └── nodemailer
+│       ├── CHANGELOG.md
+│       ├── CODE_OF_CONDUCT.md
+│       ├── lib
+│       ├── LICENSE
+│       ├── package.json
+│       ├── README.md
+│       └── SECURITY.txt
+├── package-lock.json
+├── package.json
+├── programs
+│   └── mentorship
+│       └── index.md
 ├── README.md
-└── structure.txt
+├── streams
+│   ├── community.md
+│   ├── economics.md
+│   └── technology.md
+├── structure.txt
+└── thank-you.md
 
-712 directories, 37 files
+751 directories, 89 files

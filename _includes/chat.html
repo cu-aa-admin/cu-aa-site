@@ -1,0 +1,14 @@
+{% comment %}
+  chat.html
+  Usage: {% include chat.html room=page.chat_room %}
+{% endcomment %}
+<div class="chat-widget">
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+      room: '{{ include.room }}',
+      activationElement: false,
+      targetElement: '.chat-widget'
+    };
+  </script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+</div>

@@ -1,0 +1,8 @@
+[build]
+  publish = "_site"
+  command = "bundle exec jekyll build"
+
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

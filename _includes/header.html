@@ -36,6 +36,31 @@
           </a>
         {% endif %}
       {% endfor %}
+      
+      <!-- Auth Section -->
+      <div class="auth-nav">
+        <div id="authLoggedOut">
+          <a href="/login/" class="nav-link">Login</a>
+        </div>
+        <div id="authLoggedIn" style="display: none;">
+          <div class="nav-item dropdown">
+            <a href="#" class="nav-link user-menu">
+              <span id="userName">User</span>
+              <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8">
+                <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/>
+              </svg>
+            </a>
+            <div class="dropdown-menu user-dropdown">
+              <a href="/members/dashboard/" class="dropdown-link">Dashboard</a>
+              <a href="/members/profile/" class="dropdown-link">Profile</a>
+              <a href="https://discord.gg/2h2HgWFJ" class="dropdown-link" target="_blank">Discord</a>
+              <hr style="margin: 0.5rem 0; border: none; border-top: 1px solid #eee;">
+              <a href="#" onclick="logout()" class="dropdown-link">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <a href="/donate/" class="nav-cta">Donate</a>
     </nav>
   </div>
@@ -58,11 +83,56 @@
         </a>
       {% endif %}
     {% endfor %}
+    
+    <!-- Mobile Auth -->
+    <div id="mobileAuthLoggedOut">
+      <a href="/login/" class="mobile-nav-link">Login</a>
+    </div>
+    <div id="mobileAuthLoggedIn" style="display: none;">
+      <a href="/members/dashboard/" class="mobile-nav-link">Dashboard</a>
+      <a href="https://discord.gg/2h2HgWFJ" class="mobile-nav-link" target="_blank">Discord</a>
+      <a href="#" onclick="logout()" class="mobile-nav-link">Logout</a>
+    </div>
+    
     <a href="/donate/" class="mobile-nav-cta">Donate</a>
   </nav>
 </header>
 
 <script>
+  // Check auth status on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    checkAuthStatus();
+  });
+
+  function checkAuthStatus() {
+    const user = localStorage.getItem('cuaa_user');
+    
+    if (user) {
+      const userData = JSON.parse(user);
+      
+      // Show logged in state
+      document.getElementById('authLoggedOut').style.display = 'none';
+      document.getElementById('authLoggedIn').style.display = 'block';
+      document.getElementById('mobileAuthLoggedOut').style.display = 'none';
+      document.getElementById('mobileAuthLoggedIn').style.display = 'block';
+      
+      // Set user name
+      document.getElementById('userName').textContent = userData.name.split(' ')[0]; // First name only
+    } else {
+      // Show logged out state
+      document.getElementById('authLoggedOut').style.display = 'block';
+      document.getElementById('authLoggedIn').style.display = 'none';
+      document.getElementById('mobileAuthLoggedOut').style.display = 'block';
+      document.getElementById('mobileAuthLoggedIn').style.display = 'none';
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem('cuaa_user');
+    checkAuthStatus();
+    window.location.href = '/';
+  }
+
   // Mobile menu toggle
   const mobileToggle = document.querySelector('.mobile-menu-toggle');
   const mobileNav = document.querySelector('.mobile-nav');
@@ -75,3 +145,33 @@
     body.classList.toggle('mobile-menu-open');
   });
 </script>
+
+<style>
+.auth-nav {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-dropdown {
+  min-width: 150px;
+}
+
+.user-dropdown hr {
+  margin: 0.5rem 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+@media (max-width: 768px) {
+  .auth-nav {
+    display: none;
+  }
+}
+</style>

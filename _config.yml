@@ -24,21 +24,47 @@ navigation:
     url: /about/
   - title: Blog
     url: /blog/
-  - title: Contribute
-    url: /contribute/
+  - title: Streams
+    dropdown:
+      - title: Community Chat
+        url: /streams/community/
+      - title: Economics
+        url: /streams/economics/
+      - title: Technology
+        url: /streams/technology/
   - title: Programs
-    url: /programs/
     dropdown:
       - title: Mentorship Program
         url: /programs/mentorship/
       - title: Leadership Development
         url: /programs/leadership/
+      - title: Community Service
+        url: /programs/community/
+      - title: Events & Workshops
+        url: /programs/events/
   - title: Get Involved
     url: /get-involved/
   - title: Contact
     url: /contact/
+
+# Member area pages (these will be shown via JavaScript based on auth status)
+member_pages:
+  - title: Dashboard
+    url: /members/dashboard/
+  - title: Directory
+    url: /members/directory/
+  - title: Profile
+    url: /members/profile/
+  - title: Opportunities
+    url: /members/opportunities/
+
+# Discord Integration
+discord:
+  server_id: "1393296489295384726"
+  invite_code: "2h2HgWFJ"
+  widget_theme: "dark"
+
 # Build settings
-# theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
@@ -68,6 +94,7 @@ defaults:
     values:
       layout: "program"
 
+# Exclude from processing
 exclude:
   - netlify-cms-oauth-provider-node/
   - node_modules/
@@ -75,3 +102,8 @@ exclude:
   - .bundle/
   - Gemfile
   - Gemfile.lock
+  - netlify/
+  - package.json
+  - package-lock.json
+  - .env
+  - README.md
