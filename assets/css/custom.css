@@ -12,6 +12,54 @@
   --transition: all 0.3s ease;
 }
 
+.africa-bg {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  opacity: 0.1;
+  background-image: url('/assets/images/africa.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+}
+
+/* Make it smaller on mobile */
+@media (max-width: 768px) {
+  .africa-bg {
+    width: 200px;
+    height: 200px;
+    opacity: 0.05;
+    right: -50px;
+  }
+}
+
+/* Hero with Africa silhouette */
+.hero-compact {
+  background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+  padding: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-compact h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+}
+
+.hero-compact .hero-subtitle {
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+  opacity: 0.9;
+}
+
 /* Base Styles */
 * {
   box-sizing: border-box;
@@ -483,6 +531,35 @@ body.mobile-menu-open {
   opacity: 0.8;
 }
 
+/* Social links in footer */
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links a {
+  color: var(--white);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.social-links a:hover {
+  opacity: 1;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.newsletter-form input:focus {
+  outline: 2px solid var(--accent-red);
+  outline-offset: 2px;
+}
+
+.newsletter-form button:hover {
+  background: #d01040;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .desktop-nav {
@@ -511,5 +588,198 @@ body.mobile-menu-open {
   
   .site-tagline {
     font-size: 0.75rem;
+  }
+}
+
+/* Small hero for inner pages */
+.hero-small {
+  padding: 3rem 0;
+  background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+}
+
+.hero-small h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Blog Post Styles */
+.post {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.post-header {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.post-title {
+  color: var(--columbia-blue);
+  margin-bottom: 1rem;
+}
+
+.post-meta {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-dark);
+}
+
+.post-content h2,
+.post-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--columbia-blue);
+}
+
+.post-content p {
+  margin-bottom: 1.5rem;
+}
+
+.post-content ul,
+.post-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.post-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+}
+
+.post-content strong {
+  font-weight: 600;
+  color: var(--columbia-blue);
+}
+
+/* Page content for general pages */
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Contribution Form Styles */
+.contribute-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.contribute-page h1 {
+  font-size: 2rem;
+  color: var(--columbia-blue);
+  margin-bottom: 1rem;
+}
+
+.contribute-page > p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.contribute-form {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--columbia-blue);
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: white;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--columbia-blue);
+  box-shadow: 0 0 0 3px rgba(108, 172, 228, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+/* Style the submit button */
+.contribute-form .btn-primary {
+  background-color: var(--columbia-blue);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 1rem;
+}
+
+.contribute-form .btn-primary:hover {
+  background-color: var(--columbia-light-blue);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Note section */
+.contribute-note {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: white;
+  border-left: 4px solid var(--columbia-blue);
+  border-radius: 4px;
+}
+
+.contribute-note h3 {
+  color: var(--columbia-blue);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.contribute-note ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: var(--text-light);
+}
+
+.contribute-note li {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contribute-form {
+    padding: 1.5rem;
+  }
+  
+  .contribute-page h1 {
+    font-size: 1.75rem;
   }
 }

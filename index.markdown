@@ -4,6 +4,7 @@ layout: default
 
 <!-- Hero Section -->
 <section class="hero hero-compact">
+  <div class="africa-bg"></div>
   <div class="container">
     <div class="hero-content">
       <h1>Join the Discussion</h1>
