@@ -9,7 +9,7 @@
 │   ├── page.html
 │   └── post.html
 ├── _posts
-│   └── 2025-07-10-welcome-to-jekyll.markdown
+│   └── 2025-07-10-welcome-to-site.markdown
 ├── _site
 │   ├── 404.html
 │   ├── about
@@ -25,11 +25,7 @@
 │   │   └── index.html
 │   ├── contact
 │   │   └── index.html
-│   ├── contribute
-│   │   └── index.html
 │   ├── CONTRIBUTING.md
-│   ├── contributors
-│   │   └── index.html
 │   ├── feed.xml
 │   ├── folder_structure.txt
 │   ├── index.html
@@ -71,9 +67,7 @@
 │   └── index.html
 ├── contact
 │   └── index.html
-├── contribute.html
 ├── CONTRIBUTING.md
-├── contributors.md
 ├── folder_structure.txt
 ├── Gemfile
 ├── Gemfile.lock
@@ -839,4 +833,4 @@
 ├── structure.txt
 └── thank-you.md
 
-751 directories, 89 files
+749 directories, 85 files

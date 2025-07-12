@@ -56,6 +56,11 @@
     {{ content }}
   </main>
 
+  <!-- Add Giscus discussions here -->
+  <div class="giscus-container">
+    {% include giscus.html %}
+  </div>
+
   {% comment %}
     If this page sets `chat_room:` in its front-matter, include the Gitter widget here
   {% endcomment %}
