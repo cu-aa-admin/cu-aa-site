@@ -1,20 +1,17 @@
 ---
-layout: default
+layout: member
 title: "Member Dashboard"
 permalink: /members/dashboard/
 ---
 
 <div class="dashboard-container">
-  <!-- Auth Protection -->
-  <div id="authRequired" style="display: none;">
-    <div class="auth-notice">
-      <h2>🔒 Member Access Required</h2>
-      <p>You need to be logged in to access the member dashboard.</p>
-      <a href="/login/" class="btn btn-primary">Login to Continue</a>
-    </div>
+  <!-- Loading State -->
+  <div id="loadingState" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading your dashboard...</p>
   </div>
 
-  <!-- Dashboard Content (Hidden until auth check) -->
+  <!-- Dashboard Content -->
   <div id="dashboardContent" style="display: none;">
     <div class="dashboard-header">
       <h1>Welcome back, <span id="memberName"></span>!</h1>
@@ -29,28 +26,28 @@ permalink: /members/dashboard/
       <div class="stat-card">
         <div class="stat-icon">📊</div>
         <div class="stat-info">
-          <h3>12</h3>
+          <h3 id="stat-posts">-</h3>
           <p>Posts Read</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">💬</div>
         <div class="stat-info">
-          <h3>5</h3>
+          <h3 id="stat-messages">-</h3>
           <p>Discord Messages</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🌍</div>
         <div class="stat-info">
-          <h3>3</h3>
+          <h3 id="stat-events">-</h3>
           <p>Events Attended</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🤝</div>
         <div class="stat-info">
-          <h3>8</h3>
+          <h3 id="stat-connections">-</h3>
           <p>Connections Made</p>
         </div>
       </div>
@@ -195,17 +192,32 @@ permalink: /members/dashboard/
   padding: 2rem 1rem;
 }
 
-.auth-notice {
+.loading-state {
   text-align: center;
   padding: 4rem 2rem;
-  background: #f8f9fa;
-  border-radius: 12px;
-  margin: 2rem 0;
 }
 
-.auth-notice h2 {
-  color: #1a365d;
-  margin-bottom: 1rem;
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1rem;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #2d5aa0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-state {
+  text-align: center;
+  padding: 2rem;
+  background: #fee;
+  border-radius: 8px;
+  color: #c33;
 }
 
 .dashboard-header {
@@ -497,37 +509,95 @@ permalink: /members/dashboard/
 </style>
 
 <script>
-// Auth protection and dashboard initialization
-document.addEventListener('DOMContentLoaded', function() {
-  const user = localStorage.getItem('cuaa_user');
-  
-  if (!user) {
-    document.getElementById('authRequired').style.display = 'block';
-    return;
+// Dashboard initialization with Netlify Identity
+(function() {
+  const loadingEl = document.getElementById('loadingState');
+  const contentEl = document.getElementById('dashboardContent');
+
+  // Initialize on auth ready
+  netlifyIdentity.on('init', user => {
+    if (!user) {
+      // Redirect handled by member.html layout
+      return;
+    }
+
+    loadDashboard(user);
+  });
+
+  async function loadDashboard(user) {
+    try {
+      // Extract user info
+      const metadata = user.user_metadata || {};
+      const firstName = metadata.full_name?.split(' ')[0] || user.email.split('@')[0];
+      const school = metadata.school || 'Columbia University';
+      const gradYear = metadata.graduation_year || 'N/A';
+      const roles = user.app_metadata?.roles || [];
+      const role = roles.includes('admin') ? 'Admin' : 'Member';
+
+      // Populate user info
+      document.getElementById('memberName').textContent = firstName;
+      document.getElementById('memberSchool').textContent = school;
+      document.getElementById('memberYear').textContent = gradYear;
+      document.getElementById('memberRole').textContent = role;
+
+      // Style role badge
+      const roleBadge = document.getElementById('memberRole');
+      if (role === 'Admin') {
+        roleBadge.style.background = 'rgba(220, 38, 38, 0.8)';
+        document.getElementById('adminSection').style.display = 'block';
+      } else {
+        roleBadge.style.background = 'rgba(5, 150, 105, 0.8)';
+      }
+
+      // Fetch user stats from serverless function
+      await loadUserStats(user);
+
+      // Show content, hide loading
+      loadingEl.style.display = 'none';
+      contentEl.style.display = 'block';
+
+    } catch (error) {
+      console.error('Dashboard load error:', error);
+      loadingEl.innerHTML = `
+        <div class="error-state">
+          <h3>⚠️ Error Loading Dashboard</h3>
+          <p>Please try refreshing the page.</p>
+        </div>
+      `;
+    }
   }
-  
-  const userData = JSON.parse(user);
-  
-  // Show dashboard content
-  document.getElementById('dashboardContent').style.display = 'block';
-  
-  // Populate user info
-  document.getElementById('memberName').textContent = userData.name;
-  document.getElementById('memberSchool').textContent = userData.school;
-  document.getElementById('memberYear').textContent = userData.gradYear;
-  document.getElementById('memberRole').textContent = userData.role;
-  
-  // Show admin section if user is admin
-  if (userData.role === 'admin') {
-    document.getElementById('adminSection').style.display = 'block';
+
+  async function loadUserStats(user) {
+    try {
+      const response = await fetch('/.netlify/functions/user-stats', {
+        headers: {
+          'Authorization': `Bearer ${user.token.access_token}`
+        }
+      });
+
+      if (response.ok) {
+        const stats = await response.json();
+
+        // Update stat cards
+        document.getElementById('stat-posts').textContent = stats.postsRead || 0;
+        document.getElementById('stat-messages').textContent = stats.discordMessages || 0;
+        document.getElementById('stat-events').textContent = stats.eventsAttended || 0;
+        document.getElementById('stat-connections').textContent = stats.connections || 0;
+      } else {
+        // Use defaults on error
+        setDefaultStats();
+      }
+    } catch (error) {
+      console.warn('Could not load stats:', error);
+      setDefaultStats();
+    }
   }
-  
-  // Add role-specific styling
-  const roleBadge = document.getElementById('memberRole');
-  if (userData.role === 'admin') {
-    roleBadge.style.background = 'rgba(220, 38, 38, 0.8)';
-  } else {
-    roleBadge.style.background = 'rgba(5, 150, 105, 0.8)';
+
+  function setDefaultStats() {
+    document.getElementById('stat-posts').textContent = '0';
+    document.getElementById('stat-messages').textContent = '0';
+    document.getElementById('stat-events').textContent = '0';
+    document.getElementById('stat-connections').textContent = '0';
   }
-});
+})();
 </script>
