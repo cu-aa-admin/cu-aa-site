@@ -1,17 +1,14 @@
 ---
-layout: default
+layout: member
 title: "Alumni Directory"
 permalink: /members/directory/
 ---
 
 <div class="directory-container">
-  <!-- Auth Protection -->
-  <div id="authRequired" style="display: none;">
-    <div class="auth-notice">
-      <h2>🔒 Member Access Required</h2>
-      <p>You need to be logged in to access the alumni directory.</p>
-      <a href="/login/" class="btn btn-primary">Login to Continue</a>
-    </div>
+  <!-- Loading State -->
+  <div id="loadingState" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading directory...</p>
   </div>
 
   <!-- Directory Content -->
@@ -77,11 +74,35 @@ permalink: /members/directory/
           <option value="South Africa">South Africa</option>
           <option value="Ghana">Ghana</option>
           <option value="Egypt">Egypt</option>
+          <option value="Ethiopia">Ethiopia</option>
+          <option value="Rwanda">Rwanda</option>
+          <option value="Tanzania">Tanzania</option>
+          <option value="Uganda">Uganda</option>
+          <option value="Morocco">Morocco</option>
           <option value="USA">United States</option>
           <option value="UK">United Kingdom</option>
+          <option value="Canada">Canada</option>
           <option value="Other">Other</option>
         </select>
-        
+
+        <select id="industryFilter" onchange="filterAlumni()">
+          <option value="">All Industries</option>
+          <option value="Technology">Technology</option>
+          <option value="Finance">Finance</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Education">Education</option>
+          <option value="Consulting">Consulting</option>
+          <option value="Government">Government</option>
+          <option value="Non-profit">Non-profit</option>
+          <option value="Legal">Legal</option>
+          <option value="Media">Media</option>
+          <option value="Research">Research</option>
+          <option value="Agriculture">Agriculture</option>
+          <option value="Energy">Energy</option>
+          <option value="Real Estate">Real Estate</option>
+          <option value="Other">Other</option>
+        </select>
+
         <button onclick="clearFilters()" class="btn btn-secondary">Clear Filters</button>
       </div>
     </div>
@@ -151,12 +172,32 @@ permalink: /members/directory/
   padding: 2rem 1rem;
 }
 
-.auth-notice {
+.loading-state {
   text-align: center;
   padding: 4rem 2rem;
-  background: #f8f9fa;
-  border-radius: 12px;
-  margin: 2rem 0;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1rem;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #2d5aa0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-state {
+  text-align: center;
+  padding: 2rem;
+  background: #fee;
+  border-radius: 8px;
+  color: #c33;
 }
 
 .directory-header {
@@ -555,19 +596,50 @@ let currentAlumni = [];
 let displayedCount = 0;
 const ITEMS_PER_LOAD = 6;
 
-// Auth protection
-document.addEventListener('DOMContentLoaded', function() {
-  const user = localStorage.getItem('cuaa_user');
-  
-  if (!user) {
-    document.getElementById('authRequired').style.display = 'block';
-    return;
-  }
-  
-  document.getElementById('directoryContent').style.display = 'block';
-  currentAlumni = [...alumniData];
-  loadAlumniCards();
+// Initialize with Netlify Identity
+netlifyIdentity.on('init', user => {
+  if (!user) return; // Redirect handled by member layout
+
+  loadDirectory(user);
 });
+
+async function loadDirectory(user) {
+  try {
+    // Fetch alumni from serverless function
+    const response = await fetch('/.netlify/functions/alumni-directory', {
+      headers: {
+        'Authorization': `Bearer ${user.token.access_token}`
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      alumniData.push(...data.alumni);
+
+      // Update stats
+      document.getElementById('totalAlumni').textContent = data.stats.total;
+      document.getElementById('onlineNow').textContent = data.stats.online;
+      document.getElementById('activeThisWeek').textContent = data.stats.activeWeek;
+    }
+
+    currentAlumni = [...alumniData];
+
+    // Show content, hide loading
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('directoryContent').style.display = 'block';
+
+    loadAlumniCards();
+
+  } catch (error) {
+    console.error('Error loading directory:', error);
+    document.getElementById('loadingState').innerHTML = `
+      <div class="error-state">
+        <h3>⚠️ Error Loading Directory</h3>
+        <p>Please try refreshing the page.</p>
+      </div>
+    `;
+  }
+}
 
 function loadAlumniCards() {
   const grid = document.getElementById('alumniGrid');
@@ -652,15 +724,17 @@ function filterAlumni() {
   const schoolFilter = document.getElementById('schoolFilter').value;
   const yearFilter = document.getElementById('yearFilter').value;
   const locationFilter = document.getElementById('locationFilter').value;
-  
+  const industryFilter = document.getElementById('industryFilter').value;
+
   currentAlumni = alumniData.filter(alumnus => {
     const schoolMatch = !schoolFilter || alumnus.school === schoolFilter;
     const yearMatch = !yearFilter || getYearRange(alumnus.year) === yearFilter;
     const locationMatch = !locationFilter || alumnus.location.includes(locationFilter);
-    
-    return schoolMatch && yearMatch && locationMatch;
+    const industryMatch = !industryFilter || alumnus.industry === industryFilter;
+
+    return schoolMatch && yearMatch && locationMatch && industryMatch;
   });
-  
+
   resetGrid();
 }
 
@@ -679,7 +753,8 @@ function clearFilters() {
   document.getElementById('schoolFilter').value = '';
   document.getElementById('yearFilter').value = '';
   document.getElementById('locationFilter').value = '';
-  
+  document.getElementById('industryFilter').value = '';
+
   currentAlumni = [...alumniData];
   resetGrid();
 }
