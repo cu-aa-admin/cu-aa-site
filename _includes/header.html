@@ -40,7 +40,7 @@
       <!-- Auth Section -->
       <div class="auth-nav">
         <div id="authLoggedOut">
-          <a href="/login/" class="nav-link">Login</a>
+          <a href="#" onclick="openLogin(); return false;" class="nav-link">Login</a>
         </div>
         <div id="authLoggedIn" style="display: none;">
           <div class="nav-item dropdown">
@@ -55,7 +55,7 @@
               <a href="/members/profile/" class="dropdown-link">Profile</a>
               <a href="https://discord.gg/2h2HgWFJ" class="dropdown-link" target="_blank">Discord</a>
               <hr style="margin: 0.5rem 0; border: none; border-top: 1px solid #eee;">
-              <a href="#" onclick="logout()" class="dropdown-link">Logout</a>
+              <a href="#" onclick="logout(); return false;" class="dropdown-link">Logout</a>
             </div>
           </div>
         </div>
@@ -86,12 +86,12 @@
     
     <!-- Mobile Auth -->
     <div id="mobileAuthLoggedOut">
-      <a href="/login/" class="mobile-nav-link">Login</a>
+      <a href="#" onclick="openLogin(); return false;" class="mobile-nav-link">Login</a>
     </div>
     <div id="mobileAuthLoggedIn" style="display: none;">
       <a href="/members/dashboard/" class="mobile-nav-link">Dashboard</a>
       <a href="https://discord.gg/2h2HgWFJ" class="mobile-nav-link" target="_blank">Discord</a>
-      <a href="#" onclick="logout()" class="mobile-nav-link">Logout</a>
+      <a href="#" onclick="logout(); return false;" class="mobile-nav-link">Logout</a>
     </div>
     
     <a href="/donate/" class="mobile-nav-cta">Donate</a>
@@ -99,38 +99,59 @@
 </header>
 
 <script>
-  // Check auth status on page load
+  // Check auth status on page load using Netlify Identity
   document.addEventListener('DOMContentLoaded', function() {
-    checkAuthStatus();
+    if (window.netlifyIdentity) {
+      netlifyIdentity.on('init', user => {
+        updateAuthUI(user);
+      });
+
+      netlifyIdentity.on('login', user => {
+        updateAuthUI(user);
+      });
+
+      netlifyIdentity.on('logout', () => {
+        updateAuthUI(null);
+      });
+    }
   });
 
-  function checkAuthStatus() {
-    const user = localStorage.getItem('cuaa_user');
-    
+  function updateAuthUI(user) {
+    const authLoggedOut = document.getElementById('authLoggedOut');
+    const authLoggedIn = document.getElementById('authLoggedIn');
+    const mobileAuthLoggedOut = document.getElementById('mobileAuthLoggedOut');
+    const mobileAuthLoggedIn = document.getElementById('mobileAuthLoggedIn');
+    const userNameEl = document.getElementById('userName');
+
     if (user) {
-      const userData = JSON.parse(user);
-      
       // Show logged in state
-      document.getElementById('authLoggedOut').style.display = 'none';
-      document.getElementById('authLoggedIn').style.display = 'block';
-      document.getElementById('mobileAuthLoggedOut').style.display = 'none';
-      document.getElementById('mobileAuthLoggedIn').style.display = 'block';
-      
-      // Set user name
-      document.getElementById('userName').textContent = userData.name.split(' ')[0]; // First name only
+      authLoggedOut.style.display = 'none';
+      authLoggedIn.style.display = 'block';
+      mobileAuthLoggedOut.style.display = 'none';
+      mobileAuthLoggedIn.style.display = 'block';
+
+      // Set user name (first name only)
+      const firstName = user.user_metadata?.full_name?.split(' ')[0] || user.email.split('@')[0];
+      userNameEl.textContent = firstName;
     } else {
       // Show logged out state
-      document.getElementById('authLoggedOut').style.display = 'block';
-      document.getElementById('authLoggedIn').style.display = 'none';
-      document.getElementById('mobileAuthLoggedOut').style.display = 'block';
-      document.getElementById('mobileAuthLoggedIn').style.display = 'none';
+      authLoggedOut.style.display = 'block';
+      authLoggedIn.style.display = 'none';
+      mobileAuthLoggedOut.style.display = 'block';
+      mobileAuthLoggedIn.style.display = 'none';
+    }
+  }
+
+  function openLogin() {
+    if (window.netlifyIdentity) {
+      netlifyIdentity.open();
     }
   }
 
   function logout() {
-    localStorage.removeItem('cuaa_user');
-    checkAuthStatus();
-    window.location.href = '/';
+    if (window.netlifyIdentity) {
+      netlifyIdentity.logout();
+    }
   }
 
   // Mobile menu toggle

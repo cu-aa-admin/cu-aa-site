@@ -1,0 +1,55 @@
+<!-- Netlify Identity Widget -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<script>
+  // Initialize Netlify Identity
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/members/dashboard/";
+        });
+      }
+    });
+  }
+
+  // Auth check for protected pages
+  function checkAuth() {
+    const user = netlifyIdentity.currentUser();
+
+    if (!user) {
+      // Redirect to home with message
+      sessionStorage.setItem('authRequired', 'true');
+      window.location.href = '/';
+      return null;
+    }
+
+    return user;
+  }
+
+  // Get current user data
+  function getCurrentUser() {
+    return netlifyIdentity.currentUser();
+  }
+
+  // Logout function
+  function logout() {
+    netlifyIdentity.logout();
+    window.location.href = '/';
+  }
+
+  // Check if user has specific role
+  function hasRole(role) {
+    const user = getCurrentUser();
+    if (!user) return false;
+
+    const userRoles = user.app_metadata?.roles || [];
+    return userRoles.includes(role);
+  }
+
+  // Export functions globally
+  window.checkAuth = checkAuth;
+  window.getCurrentUser = getCurrentUser;
+  window.hasRole = hasRole;
+  window.logout = logout;
+</script>

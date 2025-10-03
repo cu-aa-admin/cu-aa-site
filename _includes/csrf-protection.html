@@ -1,0 +1,73 @@
+<!-- CSRF Protection for Forms -->
+<script>
+  // Get CSRF token from serverless function
+  async function getCSRFToken() {
+    try {
+      const response = await fetch('/.netlify/functions/csrf-token', {
+        headers: {
+          'Authorization': `Bearer ${netlifyIdentity.currentUser()?.token?.access_token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get CSRF token');
+      }
+
+      const data = await response.json();
+      return data.token;
+    } catch (error) {
+      console.error('CSRF token error:', error);
+      return null;
+    }
+  }
+
+  // Add CSRF token to all forms
+  document.addEventListener('DOMContentLoaded', async function() {
+    const forms = document.querySelectorAll('form[data-csrf="true"]');
+
+    if (forms.length > 0 && netlifyIdentity.currentUser()) {
+      const token = await getCSRFToken();
+
+      if (token) {
+        forms.forEach(form => {
+          // Add hidden CSRF token field
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'csrf_token';
+          input.value = token;
+          form.appendChild(input);
+
+          // Add token to form submission
+          form.addEventListener('submit', function(e) {
+            // Token is already in the form as hidden input
+            // Backend will verify it
+          });
+        });
+      }
+    }
+  });
+
+  // Helper function to add CSRF to fetch requests
+  async function fetchWithCSRF(url, options = {}) {
+    const token = await getCSRFToken();
+
+    if (!token) {
+      throw new Error('Could not obtain CSRF token');
+    }
+
+    const headers = {
+      ...options.headers,
+      'X-CSRF-Token': token,
+      'Authorization': `Bearer ${netlifyIdentity.currentUser()?.token?.access_token}`
+    };
+
+    return fetch(url, {
+      ...options,
+      headers
+    });
+  }
+
+  // Export globally
+  window.getCSRFToken = getCSRFToken;
+  window.fetchWithCSRF = fetchWithCSRF;
+</script>
