@@ -1,25 +1,284 @@
 ---
 permalink: /404.html
-layout: page
+layout: default
 ---
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+<div class="error-page-container">
+  <div class="error-content">
+    <!-- Africa silhouette background -->
+    <div class="africa-bg-error"></div>
 
-<div class="container">
-  <h1>404</h1>
+    <div class="error-main">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Page Not Found</h2>
+      <p class="error-message">
+        Sorry, we couldn't find the page you're looking for. It may have been moved, deleted, or never existed.
+      </p>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="margin-right: 0.5rem;">
+            <path d="M8 0L0 8h3v8h4v-6h2v6h4V8h3L8 0z"/>
+          </svg>
+          Go to Homepage
+        </a>
+        <button onclick="history.back()" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="margin-right: 0.5rem;">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+          </svg>
+          Go Back
+        </button>
+      </div>
+
+      <div class="helpful-links">
+        <h3>Looking for something specific?</h3>
+        <ul class="link-list">
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/blog/">Blog & Discussions</a></li>
+          <li><a href="/streams/community/">Community Stream</a></li>
+          <li><a href="/programs/mentorship/">Mentorship Program</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/members/dashboard/">Member Dashboard</a></li>
+        </ul>
+      </div>
+
+      <div class="search-suggestion">
+        <p>Or try searching for what you need:</p>
+        <form action="/search/" method="get" class="search-form">
+          <input type="text" name="q" placeholder="Search the site..." class="search-input">
+          <button type="submit" class="search-btn">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+.error-page-container {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.africa-bg-error {
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  transform: translateY(-50%);
+  width: 600px;
+  height: 600px;
+  opacity: 0.03;
+  background-image: url('/assets/images/africa.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.error-content {
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.error-main {
+  text-align: center;
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.error-code {
+  font-size: 8rem;
+  font-weight: 800;
+  color: var(--columbia-light-blue);
+  margin: 0;
+  line-height: 1;
+  text-shadow: 2px 2px 0 rgba(0, 46, 109, 0.1);
+}
+
+.error-title {
+  font-size: 2rem;
+  color: var(--columbia-blue);
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+.error-message {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--columbia-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--columbia-light-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 46, 109, 0.3);
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.helpful-links {
+  border-top: 2px solid #f0f0f0;
+  padding-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.helpful-links h3 {
+  color: var(--columbia-blue);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.link-list li {
+  margin: 0;
+}
+
+.link-list a {
+  color: var(--columbia-blue);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.link-list a:hover {
+  color: var(--columbia-light-blue);
+  text-decoration: underline;
+}
+
+.search-suggestion {
+  border-top: 2px solid #f0f0f0;
+  padding-top: 2rem;
+}
+
+.search-suggestion p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--columbia-blue);
+}
+
+.search-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--columbia-blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-btn:hover {
+  background: var(--columbia-light-blue);
+}
+
+@media (max-width: 768px) {
+  .error-code {
+    font-size: 5rem;
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+  }
+
+  .error-message {
+    font-size: 1rem;
+  }
+
+  .error-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .link-list {
+    grid-template-columns: 1fr;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+
+  .africa-bg-error {
+    width: 300px;
+    height: 300px;
+    opacity: 0.02;
+  }
+}
+</style>
