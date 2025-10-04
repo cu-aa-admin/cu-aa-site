@@ -4,7 +4,8 @@
       "Bash(grep:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nImplement comprehensive security system with Netlify Identity\n\nSecurity improvements:\n- Replace localStorage auth with Netlify Identity (JWT-based)\n- Add server-side protection for member area pages\n- Implement CSRF token generation and validation\n- Create protected member layout with auth checks\n\nNew features:\n- Netlify Identity widget integration in header\n- Role-based access control via Netlify redirects\n- CSRF protection for forms and AJAX requests\n- Authentication verification serverless function\n\nDocumentation:\n- Add CLAUDE.md for future development guidance\n- Add SECURITY.md with complete security documentation\n- Create .env.example template for safe credential sharing\n\nFiles added:\n- _layouts/member.html - Protected page template\n- _includes/csrf-protection.html - CSRF helpers\n- _includes/auth-check.html - Auth utility functions\n- netlify/functions/csrf-token.js - Token generation\n- netlify/functions/verify-auth.js - Auth verification\n\nConfiguration:\n- Update netlify.toml with role-based redirects\n- Update header.html to use Netlify Identity\n- Update default.html to load Identity widget\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
