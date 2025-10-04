@@ -4,7 +4,7 @@
 
 # Enable Identity
 [build.environment]
-  RUBY_VERSION = "3.2.0"
+  RUBY_VERSION = "3.3.9"
 
 # Redirect rules for protected pages
 [[redirects]]
@@ -13,12 +13,6 @@
   status = 200
   force = false
   conditions = {Role = ["member", "admin"]}
-
-# Function redirects
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
 
 # Enable Netlify Identity
 [[redirects]]
