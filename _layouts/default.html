@@ -39,7 +39,7 @@
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
 
   <!-- Netlify Identity Widget -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  {% include auth-check.html %}
 
   {% if jekyll.environment == 'production' and site.google_analytics %}
     <!-- Google Analytics -->

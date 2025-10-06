@@ -101,17 +101,34 @@
 <script>
   // Check auth status on page load using Netlify Identity
   document.addEventListener('DOMContentLoaded', function() {
+    // Wait for Netlify Identity to be available
     if (window.netlifyIdentity) {
+      // Check current user immediately
+      const currentUser = netlifyIdentity.currentUser();
+      updateAuthUI(currentUser);
+
+      // Set up event listeners
       netlifyIdentity.on('init', user => {
+        console.log('Netlify Identity initialized with user:', user);
         updateAuthUI(user);
       });
 
       netlifyIdentity.on('login', user => {
+        console.log('User logged in:', user);
         updateAuthUI(user);
       });
 
       netlifyIdentity.on('logout', () => {
+        console.log('User logged out');
         updateAuthUI(null);
+      });
+    } else {
+      // If Netlify Identity isn't loaded yet, wait for it
+      window.addEventListener('load', function() {
+        if (window.netlifyIdentity) {
+          const currentUser = netlifyIdentity.currentUser();
+          updateAuthUI(currentUser);
+        }
       });
     }
   });
@@ -123,22 +140,37 @@
     const mobileAuthLoggedIn = document.getElementById('mobileAuthLoggedIn');
     const userNameEl = document.getElementById('userName');
 
+    console.log('Updating auth UI with user:', user);
+
     if (user) {
       // Show logged in state
-      authLoggedOut.style.display = 'none';
-      authLoggedIn.style.display = 'block';
-      mobileAuthLoggedOut.style.display = 'none';
-      mobileAuthLoggedIn.style.display = 'block';
+      if (authLoggedOut) authLoggedOut.style.display = 'none';
+      if (authLoggedIn) authLoggedIn.style.display = 'block';
+      if (mobileAuthLoggedOut) mobileAuthLoggedOut.style.display = 'none';
+      if (mobileAuthLoggedIn) mobileAuthLoggedIn.style.display = 'block';
 
-      // Set user name (first name only)
-      const firstName = user.user_metadata?.full_name?.split(' ')[0] || user.email.split('@')[0];
-      userNameEl.textContent = firstName;
+      // Set user name with better fallback logic
+      let displayName = 'User';
+      
+      if (user.user_metadata?.full_name) {
+        displayName = user.user_metadata.full_name.split(' ')[0];
+      } else if (user.user_metadata?.name) {
+        displayName = user.user_metadata.name.split(' ')[0];
+      } else if (user.email) {
+        displayName = user.email.split('@')[0];
+      }
+      
+      if (userNameEl) {
+        userNameEl.textContent = displayName;
+      }
+      
+      console.log('Set user name to:', displayName);
     } else {
       // Show logged out state
-      authLoggedOut.style.display = 'block';
-      authLoggedIn.style.display = 'none';
-      mobileAuthLoggedOut.style.display = 'block';
-      mobileAuthLoggedIn.style.display = 'none';
+      if (authLoggedOut) authLoggedOut.style.display = 'block';
+      if (authLoggedIn) authLoggedIn.style.display = 'none';
+      if (mobileAuthLoggedOut) mobileAuthLoggedOut.style.display = 'block';
+      if (mobileAuthLoggedIn) mobileAuthLoggedIn.style.display = 'none';
     }
   }
 

@@ -5,8 +5,10 @@
   // Initialize Netlify Identity
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on("init", user => {
+      console.log('Auth-check: Netlify Identity initialized with user:', user);
       if (!user) {
         window.netlifyIdentity.on("login", () => {
+          console.log('Auth-check: User logged in, redirecting to dashboard');
           document.location.href = "/members/dashboard/";
         });
       }
