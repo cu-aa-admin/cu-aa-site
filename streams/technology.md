@@ -29,7 +29,7 @@ Connect with our tech community on Discord for real-time conversations about inn
     Join our dedicated #technology channel on Discord to discuss AI, fintech, startups, and tech opportunities across Africa with fellow alumni.
   </p>
   <div style="text-align: center;">
-    <a href="https://discord.gg/2h2HgWFJ" 
+    <a href="https://discord.gg/buzRNDjggr" 
        target="_blank" 
        style="background: #00D26A; color: white; padding: 12px 24px; 
               border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">

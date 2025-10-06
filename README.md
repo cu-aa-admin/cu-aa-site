@@ -143,7 +143,7 @@ Fully functional alumni directory with:
 - Server ID: `1393296489295384726`
 - Embedded widgets on stream pages
 - Topic-specific channels
-- Invite link: https://discord.gg/2h2HgWFJ
+- Invite link: https://discord.gg/buzRNDjggr
 
 ## Content Management
 
@@ -255,7 +255,7 @@ Copyright © 2025 Columbia University Africa Alumni. All rights reserved.
 ## Contact
 
 - **Email**: info@cu-aa.org
-- **Discord**: https://discord.gg/2h2HgWFJ
+- **Discord**: https://discord.gg/buzRNDjggr
 - **LinkedIn**: https://linkedin.com/company/cu-africa-alumni
 - **Twitter**: @CU_AfricaAlumni
 

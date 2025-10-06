@@ -67,7 +67,7 @@ Deployment happens automatically via Netlify when pushing to the `main` branch.
 
 **Discord Integration:**
 - Server ID: `1393296489295384726`
-- Invite code: `2h2HgWFJ`
+- Invite code: `buzRNDjggr`
 - Used for real-time community discussions in topic-specific channels
 
 ### Styling & Branding
@@ -206,7 +206,7 @@ Edit `_config.yml` under `navigation:` array, then restart Jekyll server.
 - **GitHub Repo:** ESGmichaelNY/cu-aa-site
 - **Main Branch:** main
 - **Giscus Discussions:** Enabled under "Website Discussions" category
-- **Discord Server:** https://discord.gg/2h2HgWFJ
+- **Discord Server:** https://discord.gg/buzRNDjggr
 
 ## Data Flow Diagrams
 

@@ -19,7 +19,7 @@ Join our private Discord server for real-time discussions with fellow alumni.
 </div>
 
 <div style="text-align: center; margin: 2rem 0;">
-  <a href="https://discord.gg/2h2HgWFJ" 
+  <a href="https://discord.gg/buzRNDjggr" 
      target="_blank" 
      style="background: #5865F2; color: white; padding: 12px 24px; 
             border-radius: 5px; text-decoration: none; font-weight: bold;">
