@@ -1,17 +1,14 @@
 ---
-layout: default
+layout: member
 title: "Opportunities"
 permalink: /members/opportunities/
 ---
 
 <div class="opportunities-container">
-  <!-- Auth Protection -->
-  <div id="authRequired" style="display: none;">
-    <div class="auth-notice">
-      <h2>🔒 Member Access Required</h2>
-      <p>You need to be logged in to access exclusive opportunities.</p>
-      <a href="/login/" class="btn btn-primary">Login to Continue</a>
-    </div>
+  <!-- Loading State -->
+  <div id="loadingState" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading opportunities...</p>
   </div>
 
   <!-- Opportunities Content -->
@@ -36,28 +33,28 @@ permalink: /members/opportunities/
       <div class="stat-card">
         <div class="stat-icon">💼</div>
         <div class="stat-info">
-          <h3>24</h3>
+          <h3 id="stat-jobs">-</h3>
           <p>Active Job Posts</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🤝</div>
         <div class="stat-info">
-          <h3>8</h3>
+          <h3 id="stat-collabs">-</h3>
           <p>Collaboration Requests</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🚀</div>
         <div class="stat-info">
-          <h3>5</h3>
+          <h3 id="stat-startups">-</h3>
           <p>Startup Opportunities</p>
         </div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🎯</div>
         <div class="stat-info">
-          <h3>12</h3>
+          <h3 id="stat-mentorships">-</h3>
           <p>Mentorship Matches</p>
         </div>
       </div>
@@ -172,12 +169,32 @@ permalink: /members/opportunities/
   padding: 2rem 1rem;
 }
 
-.auth-notice {
+.loading-state {
   text-align: center;
   padding: 4rem 2rem;
-  background: #f8f9fa;
-  border-radius: 12px;
-  margin: 2rem 0;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1rem;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #2d5aa0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-state {
+  text-align: center;
+  padding: 2rem;
+  background: #fee;
+  border-radius: 8px;
+  color: #c33;
 }
 
 .opportunities-header {
@@ -612,19 +629,51 @@ let displayedCount = 0;
 let currentCategory = 'all';
 const ITEMS_PER_LOAD = 10;
 
-// Auth protection
-document.addEventListener('DOMContentLoaded', function() {
-  const user = localStorage.getItem('cuaa_user');
-  
-  if (!user) {
-    document.getElementById('authRequired').style.display = 'block';
-    return;
-  }
-  
-  document.getElementById('opportunitiesContent').style.display = 'block';
-  currentOpportunities = [...opportunitiesData];
-  loadOpportunities();
+// Initialize with Netlify Identity
+netlifyIdentity.on('init', user => {
+  if (!user) return; // Redirect handled by member layout
+
+  loadOpportunitiesPage(user);
 });
+
+async function loadOpportunitiesPage(user) {
+  try {
+    // Fetch opportunities from serverless function
+    const response = await fetch('/.netlify/functions/opportunities', {
+      headers: {
+        'Authorization': `Bearer ${user.token.access_token}`
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      opportunitiesData.push(...data.opportunities);
+
+      // Update stats
+      document.getElementById('stat-jobs').textContent = data.stats.jobs;
+      document.getElementById('stat-collabs').textContent = data.stats.collaborations;
+      document.getElementById('stat-startups').textContent = data.stats.startups;
+      document.getElementById('stat-mentorships').textContent = data.stats.mentorships;
+    }
+
+    currentOpportunities = [...opportunitiesData];
+
+    // Show content, hide loading
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('opportunitiesContent').style.display = 'block';
+
+    loadOpportunities();
+
+  } catch (error) {
+    console.error('Error loading opportunities:', error);
+    document.getElementById('loadingState').innerHTML = `
+      <div class="error-state">
+        <h3>⚠️ Error Loading Opportunities</h3>
+        <p>Please try refreshing the page.</p>
+      </div>
+    `;
+  }
+}
 
 function showCategory(category) {
   currentCategory = category;
@@ -745,11 +794,20 @@ function loadMoreOpportunities() {
 }
 
 // Handle form submission
-document.getElementById('opportunityForm').addEventListener('submit', function(e) {
+document.getElementById('opportunityForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  
-  const user = JSON.parse(localStorage.getItem('cuaa_user'));
-  
+
+  const user = netlifyIdentity.currentUser();
+  if (!user) {
+    alert('You must be logged in to post opportunities.');
+    return;
+  }
+
+  const metadata = user.user_metadata || {};
+  const firstName = metadata.full_name?.split(' ')[0] || user.email.split('@')[0];
+  const school = metadata.school || 'Columbia';
+  const gradYear = metadata.graduation_year || 'N/A';
+
   const newOpp = {
     id: Date.now(),
     title: document.getElementById('oppTitle').value,
@@ -762,19 +820,20 @@ document.getElementById('opportunityForm').addEventListener('submit', function(e
     skills: document.getElementById('oppSkills').value.split(',').map(s => s.trim()).filter(s => s),
     contact: document.getElementById('oppContact').value,
     deadline: document.getElementById('oppDeadline').value,
-    postedBy: `${user.name} (${user.school} '${user.gradYear})`,
+    postedBy: `${firstName} (${school} '${gradYear})`,
     postedDate: new Date().toISOString().split('T')[0]
   };
-  
-  // Add to opportunities list
+
+  // TODO: Post to serverless function to save in database
+  // For now, add to local list
   opportunitiesData.unshift(newOpp);
-  
+
   // Refresh current view
   showCategory(currentCategory);
-  
+
   // Close modal
   closePostModal();
-  
+
   alert('Opportunity posted successfully!');
 });
 
