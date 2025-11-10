@@ -10,3 +10,5 @@ vendor
 netlify-cms-oauth-provider-node/
 .env
 *.log
+# Local Netlify folder
+.netlify

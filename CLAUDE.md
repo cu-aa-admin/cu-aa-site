@@ -4,217 +4,211 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **Jekyll-based static website** for Columbia University Africa Alumni (CU-AA) - a community platform for Columbia graduates focused on African development discussions, mentorship programs, and alumni networking. The site is deployed on Netlify and integrates with Discord for real-time community chat and Giscus for GitHub-backed discussions.
+Jekyll-based static website for Columbia University Africa Alumni (CU-AA) - a community platform bringing together 90+ Columbia graduates working on African development. Features discussion streams, member directory, mentorship programs, and Discord integration.
 
-**NOT YET LIVE** - Still in development phase.
+**Stack:** Jekyll 4.4.1, Netlify hosting, Netlify Identity (JWT auth), Giscus comments (GitHub Discussions), Discord widget integration.
 
 ## Development Commands
 
-### Local Development
 ```bash
-# Install Ruby dependencies
-bundle install
+# Install dependencies
+bundle install          # Ruby/Jekyll dependencies
+npm install            # Node dependencies for Netlify Functions
 
-# Run local development server
-bundle exec jekyll serve
+# Local development
+bundle exec jekyll serve    # Start dev server at http://localhost:4000
+                           # Auto-rebuilds on file changes (except _config.yml)
 
 # Build for production
-bundle exec jekyll build
+bundle exec jekyll build    # Output to _site/
+
+# Deployment
+git push origin main       # Auto-deploys via Netlify
 ```
 
-The site will be available at `http://localhost:4000`. Jekyll watches for file changes and rebuilds automatically (except `_config.yml` - requires server restart).
-
-### Deployment
-
-Deployment happens automatically via Netlify when pushing to the `main` branch.
-- Build command: `bundle exec jekyll build`
-- Publish directory: `_site`
+**Important:** After changing `_config.yml`, you must restart the Jekyll server.
 
 ## Architecture & Key Concepts
 
-### Content Structure
+### Content Architecture
 
-**Jekyll Collections & Categories:**
-- `_posts/` - Blog posts/discussion threads (currently empty - needs seed content)
-- `_programs/` - Custom collection for program pages (mentorship, leadership, etc.)
-- Categories filter posts: `economics`, `technology`, `education`, `healthcare`, `policy`, `climate`
+**Jekyll Collections:**
+- `_posts/` - Blog posts organized by category (economics, technology, education, healthcare, policy, climate)
+- `_programs/` - Custom collection for program pages (auto-routes to `/programs/:name/`)
 
-**Page Types:**
-- **Stream pages** (`/streams/`) - Topic-specific discussion hubs that aggregate posts by category and link to Discord channels
-- **Member pages** (`/members/`) - Protected area for authenticated alumni (dashboard, directory, profile, opportunities)
-- **Program pages** (`/programs/`) - Static informational pages about CU-AA initiatives
+**Page Structure:**
+- **Streams** (`/streams/`) - Topic hubs aggregating posts by category with Discord integration
+- **Member Area** (`/members/`) - Auth-protected pages (dashboard, directory, profile, opportunities)
+- **Programs** (`/programs/`) - Static program information pages
+- **Admin** (`/admin/`) - Post generation tool for moderators
 
 ### Templating System
 
-**Layouts** (`_layouts/`):
-- `default.html` - Base template with header, footer, Giscus discussions, Google Analytics placeholder
-- `post.html` - Blog post wrapper (minimal, extends default)
+**Layouts:**
+- `default.html` - Base layout with Netlify Identity widget, SEO tags, Giscus integration
+- `member.html` - Protected layout with auth verification (extends default)
+- `post.html` - Blog post wrapper
 - `page.html` - Generic page wrapper
 
-**Includes** (`_includes/`):
-- `header.html` - Navigation with dropdown menus, mobile hamburger, client-side auth state (localStorage-based)
-- `footer.html` - Social links, newsletter form (no backend yet), quick links
-- `giscus.html` - GitHub Discussions integration (repo: ESGmichaelNY/cu-aa-site)
-- `chat.html` - Discord widget embed (optional, controlled by `chat_room:` front matter)
+**Key Includes:**
+- `header.html` - Navigation with Netlify Identity integration, dropdown menus, mobile responsive
+- `footer.html` - Social links, newsletter form, quick links
+- `giscus.html` - GitHub Discussions commenting (repo: cu-aa-admin/cu-aa-site)
+- `csrf-protection.html` - CSRF token helpers for forms and AJAX
+- `auth-check.html` - Authentication utility functions
+- `chat.html` - Discord widget (enabled via `chat_room:` frontmatter)
 
-### Authentication & Authorization
+### Authentication & Security
 
-**Current Implementation (Insecure - Needs Replacement):**
-- Client-side only using `localStorage.getItem('cuaa_user')`
-- No actual authentication flow implemented
-- Header shows/hides nav items based on localStorage state
-- **TODO:** Replace with proper JWT/OAuth before launch
+**Netlify Identity (JWT-based):**
+- Loaded via `<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>` in `default.html`
+- Client-side auth check in `member.html` layout - verifies JWT on page load
+- Server-side protection via `netlify.toml` redirects (role-based: "member", "admin")
+- CSRF protection via serverless functions (`netlify/functions/csrf-token.js`)
+- Forms use `data-csrf="true"` attribute for automatic token injection
+
+**To protect a page:** Use `layout: member` in frontmatter
 
 **Discord Integration:**
 - Server ID: `1393296489295384726`
-- Invite code: `buzRNDjggr`
-- Used for real-time community discussions in topic-specific channels
+- Permanent invite: `https://discord.gg/buzRNDjggr`
+- Widget embeds on stream pages for topic-specific channels
 
-### Styling & Branding
+### Styling
 
-**Design System:**
-- Primary colors defined in `/assets/css/custom.css`:
-  - Columbia Blue: `#002E6D`
-  - Columbia Light Blue: `#6CACE4`
-  - Accent Red: `#EE1848`
+**Design System** (`/assets/css/custom.css`):
+- Columbia Blue: `#002E6D`, Light Blue: `#6CACE4`, Accent Red: `#EE1848`
 - Font: Inter (Google Fonts)
 - Responsive breakpoint: 768px
-- Africa continent SVG silhouette used as decorative background element
+- Mobile-first approach with hamburger menu
 
-**Key CSS Features:**
-- All page-specific styles are inline in markdown files (not ideal for production)
-- Navigation has dropdown support for multi-level menus
-- Mobile-first responsive approach
+**Note:** Many pages have inline styles in markdown - should be refactored to CSS for maintainability.
 
-### Forms & Data Submission
+### Serverless Functions (Netlify)
 
-**Blog Submission Flow:**
-1. User submits via contact form or dedicated submission form
-2. Netlify Function (`/netlify/functions/submit-blog-post.js`) sends email via nodemailer
-3. Admin manually creates post file in `_posts/` using admin dashboard (`/admin/`)
-4. Admin dashboard generates properly formatted frontmatter and filename
+Located in `netlify/functions/`:
+- `submit-blog-post.js` - Handles blog submissions via email (nodemailer)
+- `alumni-directory.js` - Returns filtered alumni directory data (currently mock data)
+- `csrf-token.js` - Generates CSRF tokens for form protection
+- `verify-auth.js` - Server-side authentication verification
+- `user-stats.js` - Member statistics endpoint
 
-**Newsletter Form:**
-- Footer has newsletter signup pointing to `/subscribe` (no handler implemented)
+**Blog Submission Workflow:**
+1. User submits form → Function emails admin
+2. Admin uses `/admin/` dashboard to generate formatted markdown
+3. Admin creates file in `_posts/YYYY-MM-DD-slug.markdown`
+4. Commit triggers Netlify rebuild
 
-### Configuration Architecture
+### Configuration
 
-**`_config.yml` Critical Settings:**
-- `navigation:` - Defines main nav structure (supports nested dropdowns)
-- `member_pages:` - Auth-required pages shown via JavaScript
-- `discord:` - Server credentials and widget settings
-- `collections:` - Defines `_programs/` collection with custom permalink
-- `defaults:` - Auto-applies layouts to posts/programs
+**`_config.yml`** controls:
+- `navigation:` - Main nav with dropdown support
+- `member_pages:` - Member area pages list
+- `discord:` - Server ID and invite code
+- `collections:` - Custom collections (`_programs/`)
+- `defaults:` - Auto-applied layout assignments
 
-**Environment:**
-- `.env` file exists (should be gitignored - currently tracked!)
-- Netlify environment variables needed for email functions
+**Environment Variables:**
+- `.env.example` - Template for local development (copy to `.env`)
+- Netlify Dashboard - Set `EMAIL_USER`, `EMAIL_PASS`, `ADMIN_EMAIL` for production
+- `netlify.toml` - Build settings (Ruby 3.3.9), redirects, role-based access control
 
-### Content Management
+### Alumni Directory
 
-**Manual Workflow (Current):**
-1. Blog submissions arrive via email (Netlify Function)
-2. Admin uses `/admin/` dashboard to:
-   - View submission
-   - Generate formatted markdown with proper frontmatter
-   - Copy generated content
-3. Admin creates new file in `_posts/YYYY-MM-DD-slug.markdown` via GitHub or locally
-4. Git commit triggers Netlify rebuild
+**Member Directory** (`/members/directory/`):
+- Serverless function: `netlify/functions/alumni-directory.js`
+- Currently returns mock data (50 alumni profiles)
+- Features: filtering by location/industry/class year, search, modal details
+- TODO: Replace with real database connection
 
-**Netlify CMS (Planned but not configured):**
-- OAuth provider code exists in `netlify-cms-oauth-provider-node/` but not integrated
+## Key Patterns & Workflows
 
-## Important Patterns & Conventions
+### Creating a Blog Post
 
-### Post Frontmatter Format
+**Frontmatter format:**
 ```yaml
 ---
 layout: post
 title: "Post Title"
 date: YYYY-MM-DD
 author: "Name (Class Year)"
-categories: [economics|technology|education|healthcare|policy|climate]
+categories: economics  # or: technology, education, healthcare, policy, climate
 ---
 ```
 
-### Creating New Stream Pages
-Streams follow pattern in `/streams/economics.md`:
-- Aggregate posts by category: `{% for post in site.categories.economics %}`
-- Include Discord channel CTA with invite link
-- List discussion topics and contribution guidelines
+Create file: `_posts/YYYY-MM-DD-title-slug.markdown`
 
-### Member Area Protection
-Member pages check auth client-side but have **NO server-side protection**. Pages are publicly accessible URLs - only UI elements are hidden.
+### Creating a Stream Page
 
-### Navigation Dropdowns
-Defined in `_config.yml` with nested structure:
+Follow pattern in `/streams/economics.md`:
+- Aggregate posts: `{% for post in site.categories.economics %}`
+- Link to Discord channel
+- List discussion topics
+
+### Protecting Member Pages
+
+Add `layout: member` to frontmatter - provides:
+- Client-side JWT verification (redirects if not authenticated)
+- Server-side role enforcement via Netlify redirects
+
+### Navigation Structure
+
+Edit `_config.yml`:
 ```yaml
 navigation:
-  - title: Programs
+  - title: Menu Item
+    url: /page/
+  - title: Dropdown
     dropdown:
-      - title: Mentorship Program
-        url: /programs/mentorship/
+      - title: Submenu
+        url: /submenu/
 ```
 
-## Critical Files Reference
+Restart Jekyll after changes.
 
-- `_config.yml` - Site-wide configuration, navigation, social links, Discord settings
-- `_layouts/default.html` - Meta tags, analytics, global layout wrapper
-- `_includes/header.html` - Navigation and authentication UI logic
-- `/assets/css/custom.css` - Design system and base styles
-- `/admin/index.html` - Post generation tool for moderators
-- `netlify.toml` - Deployment configuration
-- `Gemfile` - Ruby dependencies (Jekyll 4.4.1, SEO/sitemap plugins)
+## Important Files
 
-## Common Development Tasks
+**Configuration:**
+- `_config.yml` - Site config, navigation, Discord settings
+- `netlify.toml` - Build config, redirects, role-based access
+- `Gemfile` - Ruby dependencies (Jekyll 4.4.1 + plugins)
+- `.env.example` - Environment variable template
 
-### Adding a New Blog Post
-Create file: `_posts/YYYY-MM-DD-title-slug.markdown`
-```markdown
----
-layout: post
-title: "Your Title"
-date: 2025-10-03
-author: "Name (CC '15)"
-categories: economics
----
+**Key Layouts:**
+- `_layouts/default.html` - Base template with Netlify Identity
+- `_layouts/member.html` - Protected page template with auth check
 
-Your content here...
-```
+**Key Includes:**
+- `_includes/header.html` - Nav with Netlify Identity integration
+- `_includes/csrf-protection.html` - CSRF helpers for forms
+- `_includes/giscus.html` - GitHub Discussions comments
 
-### Adding a New Program
-Create file: `_programs/program-name.md` (auto-routes to `/programs/program-name/`)
+**Serverless Functions:**
+- `netlify/functions/alumni-directory.js` - Directory data API
+- `netlify/functions/csrf-token.js` - CSRF token generation
+- `netlify/functions/submit-blog-post.js` - Blog submission handler
 
-### Modifying Navigation
-Edit `_config.yml` under `navigation:` array, then restart Jekyll server.
+## Known Limitations & TODOs
 
-## Known Issues & TODOs
+1. **Alumni directory uses mock data** - Replace `alumni-directory.js` with real database queries
+2. **Newsletter form has no backend** - `/subscribe` endpoint not implemented
+3. **Inline styles in markdown** - Refactor to CSS files for maintainability
+4. **Google Analytics not configured** - Set `google_analytics:` in `_config.yml`
+5. **Error handling minimal** - Add error states for forms and API calls
+6. **Netlify CMS not configured** - OAuth provider code exists in `netlify-cms-oauth-provider-node/` but not integrated
 
-1. **Authentication is client-side only** - Insecure, needs proper implementation
-2. **No actual blog posts exist** - `_posts/` is empty
-3. **Member area pages are stubs** - Need real functionality
-4. **Missing images** - OG image, favicons referenced but some may not exist
-5. **Newsletter form has no backend** - Form action `/subscribe` not implemented
-6. **Contact form needs backend** - Only Netlify Function exists, form UI needed
-7. **`.env` is tracked in git** - Security issue, should be gitignored
-8. **Google Analytics not configured** - Template ready but no tracking ID
-9. **Many inline styles** - Should be moved to CSS files for maintainability
-10. **No error handling** - Forms, auth, API calls lack error states
+## Repository Info
 
-## Repository Information
-
-- **GitHub Repo:** ESGmichaelNY/cu-aa-site
+- **GitHub:** cu-aa-admin/cu-aa-site
 - **Main Branch:** main
-- **Giscus Discussions:** Enabled under "Website Discussions" category
-- **Discord Server:** https://discord.gg/buzRNDjggr
+- **Giscus:** Enabled (Category: "Website Discussions")
+- **Discord:** https://discord.gg/buzRNDjggr
 
-## Data Flow Diagrams
+## Security
 
-**Discussion/Comment System:**
-User visits post → Giscus widget loads → Comments stored in GitHub Discussions → Displayed via Giscus client
-
-**Blog Submission (Current):**
-User fills form → Netlify Function emails admin → Admin uses /admin/ dashboard → Manual git commit → Site rebuilds
-
-**Authentication (Current - Broken):**
-Login page (not implemented) → Sets localStorage → Header reads localStorage → Shows/hides nav items (client-side only, no security)
+See `SECURITY.md` for complete security documentation including:
+- Netlify Identity setup instructions
+- CSRF protection implementation
+- Environment variable configuration
+- Role-based access control
+- Security checklist before launch
