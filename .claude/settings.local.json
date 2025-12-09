@@ -9,6 +9,7 @@
       "Bash(convert:*)",
       "Bash(git commit:*)",
       "Bash(cat:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nImplement opportunities/job board with Netlify Identity\n\nJob board features:\n- Migrate from localStorage to Netlify Identity authentication\n- Add loading spinner for async data fetching\n- Category-based filtering (jobs, collaborations, startups, mentorship, events)\n- Dynamic stats per category\n- Post new opportunity form with validation\n- Contact poster functionality (mailto links)\n- Save opportunities feature\n- Pagination (10 per page)\n\nNew serverless function:\n- netlify/functions/opportunities.js\n- Generates 30 diverse opportunities\n- Multiple categories with appropriate content\n- Realistic job titles, companies, locations\n- Skills tagging system\n- Deadline management\n- 10-minute cache for performance\n\nForm features:\n- Complete opportunity posting form\n- Required fields validation\n- Category, type, location selectors\n- Salary/compensation field\n- Skills/tags (comma-separated)\n- Contact information\n- Application deadline picker\n- User metadata extraction from JWT\n\nUI/UX:\n- Category tabs with active states\n- Stat cards with icons\n- Opportunity cards with hover effects\n- Skill tags and category badges\n- Color-coded categories\n- Modal for posting opportunities\n- Responsive design\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git pull:*)",
       "Bash(git stash:*)"
     ],
