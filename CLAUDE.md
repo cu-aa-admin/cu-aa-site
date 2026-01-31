@@ -123,7 +123,17 @@ Located in `netlify/functions/`:
 
 ## Key Patterns & Workflows
 
-### Creating a Blog Post
+### Using Decap CMS (Content Management)
+
+Access the CMS at `/admin/` to create and edit content through a web interface:
+- **Posts:** Full WYSIWYG editor for blog posts with category selection
+- **Programs:** Edit program pages
+- **Pages:** Edit About and Home pages
+- **Editorial Workflow:** Draft → Review → Publish stages
+
+**Requirements:** Git Gateway must be enabled in Netlify Dashboard (see SETUP below).
+
+### Creating a Blog Post (Manual)
 
 **Frontmatter format:**
 ```yaml
@@ -195,7 +205,7 @@ Restart Jekyll after changes.
 3. **Inline styles in markdown** - Refactor to CSS files for maintainability
 4. **Google Analytics not configured** - Set `google_analytics:` in `_config.yml`
 5. **Error handling minimal** - Add error states for forms and API calls
-6. **Netlify CMS not configured** - OAuth provider code exists in `netlify-cms-oauth-provider-node/` but not integrated
+6. **Netlify CMS configured** - Decap CMS (formerly Netlify CMS) available at `/admin/` using Git Gateway
 
 ## Repository Info
 
