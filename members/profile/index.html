@@ -672,6 +672,34 @@ permalink: /members/profile/
 </style>
 
 <script>
+// XSS Prevention: HTML escape function
+function escapeHtml(text) {
+  if (text === null || text === undefined) return '';
+  const div = document.createElement('div');
+  div.textContent = String(text);
+  return div.innerHTML;
+}
+
+// XSS Prevention: Sanitize URLs (only allow http/https)
+function sanitizeUrl(url) {
+  if (!url) return '#';
+  const trimmed = String(url).trim();
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    return trimmed;
+  }
+  return '#';
+}
+
+// XSS Prevention: Create safe link element
+function createSafeLink(url, text) {
+  const safeUrl = sanitizeUrl(url);
+  const safeText = escapeHtml(text || url);
+  if (safeUrl === '#') {
+    return escapeHtml(url || 'Invalid URL');
+  }
+  return `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer">${safeText}</a>`;
+}
+
 // Auth protection and profile initialization
 document.addEventListener('DOMContentLoaded', function() {
   const user = localStorage.getItem('cuaa_user');
@@ -732,10 +760,10 @@ function populateProfile(userData) {
       document.getElementById('profileLocation').textContent = profileData.location;
     }
     if (profileData.linkedin) {
-      document.getElementById('profileLinkedIn').innerHTML = `<a href="${profileData.linkedin}" target="_blank">View Profile</a>`;
+      document.getElementById('profileLinkedIn').innerHTML = createSafeLink(profileData.linkedin, 'View Profile');
     }
     if (profileData.website) {
-      document.getElementById('profileWebsite').innerHTML = `<a href="${profileData.website}" target="_blank">${profileData.website}</a>`;
+      document.getElementById('profileWebsite').innerHTML = createSafeLink(profileData.website, profileData.website);
     }
     if (profileData.educationDetails) {
       document.getElementById('educationDetails').textContent = profileData.educationDetails;
@@ -846,11 +874,11 @@ function editContact() {
     saveProfileData('location', location);
   }
   if (linkedin) {
-    document.getElementById('profileLinkedIn').innerHTML = `<a href="${linkedin}" target="_blank">View Profile</a>`;
+    document.getElementById('profileLinkedIn').innerHTML = createSafeLink(linkedin, 'View Profile');
     saveProfileData('linkedin', linkedin);
   }
   if (website) {
-    document.getElementById('profileWebsite').innerHTML = `<a href="${website}" target="_blank">${website}</a>`;
+    document.getElementById('profileWebsite').innerHTML = createSafeLink(website, website);
     saveProfileData('website', website);
   }
 }

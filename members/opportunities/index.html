@@ -545,6 +545,14 @@ permalink: /members/opportunities/
 </style>
 
 <script>
+// XSS Prevention: HTML escape function
+function escapeHtml(text) {
+  if (text === null || text === undefined) return '';
+  const div = document.createElement('div');
+  div.textContent = String(text);
+  return div.innerHTML;
+}
+
 // Sample opportunities data
 const opportunitiesData = [
   {
@@ -719,45 +727,63 @@ function loadOpportunities() {
 function createOpportunityCard(opp) {
   const card = document.createElement('div');
   card.className = 'opportunity-card';
-  
-  const skillsHtml = opp.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
-  const deadlineHtml = opp.deadline ? `<span>⏰ Deadline: ${new Date(opp.deadline).toLocaleDateString()}</span>` : '';
-  
+
+  // Escape all user-controlled data to prevent XSS
+  const safeTitle = escapeHtml(opp.title);
+  const safeCompany = escapeHtml(opp.company);
+  const safeCategory = escapeHtml(opp.category);
+  const safeLocation = escapeHtml(opp.location);
+  const safeType = escapeHtml(opp.type);
+  const safeSalary = escapeHtml(opp.salary);
+  const safeDescription = escapeHtml(opp.description);
+  const safePostedBy = escapeHtml(opp.postedBy);
+
+  const skillsHtml = (opp.skills || []).map(skill => `<span class="skill-tag">${escapeHtml(skill)}</span>`).join('');
+  const deadlineHtml = opp.deadline ? `<span>⏰ Deadline: ${escapeHtml(new Date(opp.deadline).toLocaleDateString())}</span>` : '';
+
   card.innerHTML = `
     <div class="opportunity-header">
       <div class="opportunity-title">
-        <h3>${opp.title}</h3>
-        <div class="opportunity-company">${opp.company}</div>
+        <h3>${safeTitle}</h3>
+        <div class="opportunity-company">${safeCompany}</div>
       </div>
-      <span class="opportunity-category category-${opp.category}">${opp.category}</span>
+      <span class="opportunity-category category-${safeCategory}">${safeCategory}</span>
     </div>
-    
+
     <div class="opportunity-meta">
-      <span>📍 ${opp.location}</span>
-      <span>💼 ${opp.type}</span>
-      <span>💰 ${opp.salary}</span>
+      <span>📍 ${safeLocation}</span>
+      <span>💼 ${safeType}</span>
+      <span>💰 ${safeSalary}</span>
       ${deadlineHtml}
     </div>
-    
+
     <div class="opportunity-description">
-      ${opp.description}
+      ${safeDescription}
     </div>
-    
+
     <div class="opportunity-skills">
       ${skillsHtml}
     </div>
-    
+
     <div class="opportunity-footer">
       <div class="opportunity-actions">
-        <button onclick="contactPoster('${opp.contact}')" class="btn btn-primary btn-sm">📧 Contact</button>
-        <button onclick="saveOpportunity(${opp.id})" class="btn btn-secondary btn-sm">💾 Save</button>
+        <button class="btn btn-primary btn-sm contact-btn" data-contact="${escapeHtml(opp.contact)}">📧 Contact</button>
+        <button class="btn btn-secondary btn-sm save-btn" data-id="${escapeHtml(String(opp.id))}">💾 Save</button>
       </div>
       <div class="opportunity-date">
-        Posted by ${opp.postedBy} on ${new Date(opp.postedDate).toLocaleDateString()}
+        Posted by ${safePostedBy} on ${escapeHtml(new Date(opp.postedDate).toLocaleDateString())}
       </div>
     </div>
   `;
-  
+
+  // Use event delegation for buttons to avoid inline onclick XSS
+  card.querySelector('.contact-btn').addEventListener('click', function() {
+    contactPoster(this.dataset.contact);
+  });
+  card.querySelector('.save-btn').addEventListener('click', function() {
+    saveOpportunity(parseInt(this.dataset.id, 10));
+  });
+
   return card;
 }
 
