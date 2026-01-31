@@ -6,8 +6,34 @@
   <meta name="robots" content="noindex" />
   <title>Content Manager | CU-AA</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    .cms-header {
+      background: #002E6D;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cms-header a {
+      color: white;
+      text-decoration: none;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.9rem;
+    }
+    .cms-header .logo {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .cms-header .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+  <div class="cms-header">
+    <a href="/" class="logo">Columbia Alumni | CMS</a>
+    <a href="/" class="back-link">&larr; Back to Site</a>
+  </div>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
