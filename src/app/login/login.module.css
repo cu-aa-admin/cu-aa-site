@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 1rem;
+}
+
+.card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.title {
+    color: var(--columbia-blue);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.subtitle {
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.group label {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.group input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.primaryBtn {
+    background: var(--columbia-blue);
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.secondaryBtn {
+    background: transparent;
+    color: var(--columbia-blue);
+    padding: 0.75rem;
+    border: 1px solid var(--columbia-blue);
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.message {
+    background: #e6fffa;
+    color: #047481;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.error {
+    background: #fff5f5;
+    color: #c53030;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}

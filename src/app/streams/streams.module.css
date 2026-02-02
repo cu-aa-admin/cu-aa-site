@@ -1,0 +1,80 @@
+.page {
+    background-color: var(--background);
+    min-height: 100vh;
+    padding-bottom: 4rem;
+}
+
+.hero {
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.hero h1 {
+    color: var(--columbia-blue);
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    color: var(--text-light);
+    font-size: 1.2rem;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.card h2 {
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.discordBtn {
+    background-color: #5865F2;
+    /* Discord Brand Color */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+
+.discordBtn:hover {
+    background-color: #4752C4;
+}

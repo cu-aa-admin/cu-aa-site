@@ -1,0 +1,248 @@
+/* Columbia Brand Colors */
+:root {
+  --columbia-blue: #002E6D;
+  --columbia-light-blue: #6CACE4;
+  --columbia-gray: #63666A;
+  --white: #FFFFFF;
+  --accent-red: #EE1848;
+
+  /* Semantic Variables (Light Mode Default) */
+  --text-dark: #1A1A1A;
+  --text-light: #666666;
+  --background: #FFFFFF;
+  --surface: #FFFFFF;
+  --border: #e5e7eb;
+
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Mode - Dark Blue Theme */
+    --background: #000E26;
+    /* Deep Midnight Blue */
+    --surface: #001A3D;
+    /* Slightly lighter blue for cards */
+    --white: #001A3D;
+    /* Remapping legacy white to surface color */
+
+    --text-dark: #F3F4F6;
+    /* White/Light Gray text */
+    --text-light: #9CA3AF;
+    /* Muted gray text */
+    --border: #1E3A8A;
+    /* Dark Blue border */
+
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-dark);
+  background-color: var(--background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --- Re-used from legacy custom.css --- */
+
+.africa-bg {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  opacity: 0.1;
+  background-image: url('/assets/images/africa.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+}
+
+/* Make it smaller on mobile */
+@media (max-width: 768px) {
+  .africa-bg {
+    width: 200px;
+    height: 200px;
+    opacity: 0.05;
+    right: -50px;
+  }
+}
+
+/* Hero with Africa silhouette */
+.hero-compact {
+  background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+  padding: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-compact h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+}
+
+.hero-compact .hero-subtitle {
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+  opacity: 0.9;
+}
+
+.wrapper,
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Header Styles */
+.site-header {
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 1rem;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--columbia-blue);
+  line-height: 1.2;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+  color: var(--white);
+  padding: 5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero h1 {
+  margin-bottom: 1.5rem;
+  font-size: 3rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--white);
+  color: var(--columbia-blue);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+
+.btn-secondary:hover {
+  background-color: var(--white);
+  color: var(--columbia-blue);
+}

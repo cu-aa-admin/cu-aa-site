@@ -1,0 +1,89 @@
+.hero {
+    background: linear-gradient(135deg, var(--columbia-blue) 0%, var(--columbia-light-blue) 100%);
+    padding: 4rem 0;
+    color: white;
+    text-align: center;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-top: 1rem;
+}
+
+.section {
+    padding: 4rem 0;
+    background-color: var(--background);
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.contentBlock {
+    margin-bottom: 4rem;
+}
+
+.contentBlock h2 {
+    color: var(--columbia-blue);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.contentBlock p {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card,
+.valueCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card h3,
+.valueCard h3 {
+    color: var(--columbia-blue);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.card p,
+.valueCard p {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 0;
+}
+
+.cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.primaryBtn {
+    background-color: var(--columbia-blue);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.primaryBtn:hover {
+    background-color: var(--columbia-light-blue);
+}
