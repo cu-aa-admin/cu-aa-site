@@ -2,52 +2,17 @@
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { auth } from '@clerk/nextjs/server'
 import { createClient } from '@/utils/supabase/server'
 
-export async function login(formData: FormData) {
-    const supabase = await createClient()
-
-    // type-casting here for simplicity
-    const data = {
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-    }
-
-    const { error } = await supabase.auth.signInWithPassword(data)
-
-    if (error) {
-        redirect('/login?error=' + encodeURIComponent(error.message))
-    }
-
-    revalidatePath('/', 'layout')
-    redirect('/profile')
-}
-
-export async function signup(formData: FormData) {
-    const supabase = await createClient()
-
-    const data = {
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-    }
-
-    const { error } = await supabase.auth.signUp(data)
-
-    if (error) {
-        redirect('/login?error=' + encodeURIComponent(error.message))
-    }
-
-    revalidatePath('/', 'layout')
-    redirect('/profile?message=Check your email to verify your account')
-}
-
 export async function updateProfile(formData: FormData) {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { userId } = await auth()
 
-    if (!user) {
-        redirect('/login')
+    if (!userId) {
+        redirect('/sign-in')
     }
+
+    const supabase = await createClient()
 
     const updates = {
         full_name: formData.get('full_name'),
@@ -63,20 +28,11 @@ export async function updateProfile(formData: FormData) {
     const { error } = await supabase
         .from('profiles')
         .update(updates)
-        .eq('id', user.id)
+        .eq('clerk_user_id', userId)
 
     if (error) {
-        return { error: error.message }
+        console.error('Profile update error:', error.message)
     }
 
     revalidatePath('/profile')
-    return { success: true }
-}
-
-export async function signOut() {
-    const supabase = await createClient()
-    await supabase.auth.signOut()
-
-    revalidatePath('/', 'layout')
-    redirect('/')
 }

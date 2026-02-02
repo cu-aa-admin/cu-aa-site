@@ -82,5 +82,5 @@ Supabase stores extended user profiles and application data not managed by Clerk
 - **Phase 2 (Done):** Integrate Supabase for database.
 - **Phase 3 (Done):** Implement Navbar, Footer, and basic Pages.
 - **Phase 4 (Done):** Re-implement "Directory".
-- **Phase 5 (TODO):** Migrate auth from Supabase Auth to Clerk.
+- **Phase 5 (Done):** Migrate auth from Supabase Auth to Clerk.
 - **Phase 6 (TODO):** Re-implement "Streams" pages.

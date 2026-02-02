@@ -1,5 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 import styles from "./directory.module.css";
 
 export const dynamic = 'force-dynamic';
@@ -8,16 +9,15 @@ export default async function DirectoryPage(props: {
     searchParams: Promise<{ search?: string; industry?: string }>;
 }) {
     const searchParams = await props.searchParams;
-    const supabase = await createClient();
 
-    // 1. Verify Auth
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    // 1. Verify Auth with Clerk
+    const { userId } = await auth();
 
-    if (!user) {
-        redirect("/login?message=Please log in to view the directory");
+    if (!userId) {
+        redirect("/sign-in");
     }
+
+    const supabase = await createClient();
 
     // 2. Build Query
     let query = supabase

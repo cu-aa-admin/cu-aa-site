@@ -1,11 +1,14 @@
-/* 
-  RUN THIS SQL IN YOUR SUPABASE DASHBOARD (SQL EDITOR) 
+/*
+  RUN THIS SQL IN YOUR SUPABASE DASHBOARD (SQL EDITOR)
   To set up the Database for the User Directory.
+
+  This schema uses Clerk for authentication - profiles are linked via clerk_user_id.
 */
 
--- 1. Create a table for public profiles using the auth.users references
+-- 1. Create a table for public profiles (linked to Clerk users via clerk_user_id)
 create table profiles (
-  id uuid references auth.users on delete cascade not null primary key,
+  id uuid primary key default gen_random_uuid(),
+  clerk_user_id text unique not null,
   updated_at timestamp with time zone,
   full_name text,
   class_year text,
@@ -17,37 +20,23 @@ create table profiles (
   avatar_url text
 );
 
--- 2. Enable Row Level Security (Security Policy)
+-- 2. Create index for faster lookups by clerk_user_id
+create index idx_profiles_clerk_user_id on profiles(clerk_user_id);
+
+-- 3. Enable Row Level Security
 alter table profiles enable row level security;
 
--- 3. Policy: Public profiles are viewable by everyone (or just logged in users)
-create policy "Public profiles are viewable by everyone."
+-- 4. Policy: Profiles are viewable by everyone (public directory)
+create policy "Profiles are viewable by everyone"
   on profiles for select
   using ( true );
 
--- 4. Policy: Users can insert their own profile.
-create policy "Users can insert their own profile."
+-- 5. Policy: Allow inserts (profile creation handled by the app)
+create policy "Allow profile inserts"
   on profiles for insert
-  with check ( (select auth.uid()) = id );
+  with check ( true );
 
--- 5. Policy: Users can update own profile.
-create policy "Users can update own profile."
+-- 6. Policy: Allow updates (profile updates handled by the app)
+create policy "Allow profile updates"
   on profiles for update
-  using ( (select auth.uid()) = id );
-
--- 6. Trigger: Automatically create a profile entry when a new user signs up via Auth
-create function public.handle_new_user()
-returns trigger
-language plpgsql
-security definer set search_path = public
-as $$
-begin
-  insert into public.profiles (id, full_name, avatar_url)
-  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
-  return new;
-end;
-$$;
-
-create trigger on_auth_user_created
-  after insert on auth.users
-  for each row execute procedure public.handle_new_user();
+  using ( true );
