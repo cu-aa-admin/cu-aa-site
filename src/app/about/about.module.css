@@ -23,34 +23,34 @@
 }
 
 .contentBlock {
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
 }
 
 .contentBlock h2 {
     color: var(--columbia-blue);
     font-size: 2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .contentBlock p {
     color: var(--text-dark);
     font-size: 1.1rem;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .card,
 .valueCard {
     background: var(--surface);
     border: 1px solid var(--border);
-    padding: 2rem;
+    padding: 1.25rem;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -58,7 +58,7 @@
 .card h3,
 .valueCard h3 {
     color: var(--columbia-blue);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 1.25rem;
 }
 
@@ -72,7 +72,7 @@
 .cta {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .primaryBtn {
@@ -86,4 +86,22 @@
 
 .primaryBtn:hover {
     background-color: var(--columbia-light-blue);
+}
+
+.activityList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activityList li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+.activityList li:last-child {
+    border-bottom: none;
 }

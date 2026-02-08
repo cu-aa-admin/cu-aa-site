@@ -12,7 +12,7 @@ export default function AboutPage() {
             <section className={styles.hero}>
                 <div className={styles.container}>
                     <h1>About Columbia University Africa Alumni</h1>
-                    <p className={styles.heroSubtitle}>United by education, driven by Africa's potential</p>
+                    <p className={styles.heroSubtitle}>United by education, driven by Africa&apos;s potential</p>
                 </div>
             </section>
 
@@ -21,14 +21,17 @@ export default function AboutPage() {
                     <div className={styles.contentBlock}>
                         <h2>Our Story</h2>
                         <p>
+                            The purpose of the alumni group is to bring together alumni from Africa to share experiences, knowledge, and collaborative opportunities.
+                        </p>
+                        <p>
                             Columbia University Africa Alumni (CU-AA) was formed in 2023 by a group of passionate Columbia graduates
                             who recognized the need for a platform where African alumni could come together to discuss the pressing
                             issues facing our continent. What started as informal conversations among friends has grown into a
                             vibrant community of over 90 alumni from 12 African countries.
                         </p>
                         <p>
-                            We believe that Columbia's diverse African alumni network represents an untapped resource for addressing
-                            Africa's challenges. By bringing together professionals from various fields - technology, healthcare,
+                            We believe that Columbia&apos;s diverse African alumni network represents an untapped resource for addressing
+                            Africa&apos;s challenges. By bringing together professionals from various fields - technology, healthcare,
                             finance, policy, and education - we create a unique space for interdisciplinary dialogue and solution-building.
                         </p>
                     </div>
@@ -57,9 +60,23 @@ export default function AboutPage() {
                             <div className={styles.card}>
                                 <h3>🚀 Empower Leaders</h3>
                                 <p>Through mentorship and knowledge sharing, prepare the next generation of African leaders to
-                                    tackle tomorrow's challenges.</p>
+                                    tackle tomorrow&apos;s challenges.</p>
                             </div>
                         </div>
+                    </div>
+
+                    <div className={styles.contentBlock}>
+                        <h2>What We Do</h2>
+                        <p>
+                            Our activities center around creating platforms for engagement and action:
+                        </p>
+                        <ul className={styles.activityList}>
+                            <li><strong>Group Chat:</strong> A space for alumni to share perspectives on African issues, propose solutions, and engage in constructive debate</li>
+                            <li><strong>Mentorship Program:</strong> Connecting experienced alumni with emerging leaders to foster professional and personal growth</li>
+                            <li><strong>Learning and Discussion:</strong> Regular virtual and in-person gatherings to discuss specific topics affecting African countries</li>
+                            <li><strong>Resource Sharing:</strong> Creating a repository of knowledge, contacts, and opportunities for our community</li>
+                            <li><strong>Social Media:</strong> Create articles relevant to Africa</li>
+                        </ul>
                     </div>
 
                     <div className={styles.contentBlock}>
@@ -87,7 +104,7 @@ export default function AboutPage() {
                     <div className={styles.contentBlock}>
                         <h2>Join Our Community</h2>
                         <p>
-                            Whether you're a Columbia survivor working in Africa or part of the diaspora, we welcome you.
+                            Whether you&apos;re a Columbia survivor working in Africa or part of the diaspora, we welcome you.
                         </p>
                         <div className={styles.cta}>
                             <Link href="/login" className={styles.primaryBtn}>Get Involved</Link>

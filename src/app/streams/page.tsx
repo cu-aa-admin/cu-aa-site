@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styles from './streams.module.css';
 
 export const metadata = {
