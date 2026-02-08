@@ -47,16 +47,18 @@ export default async function ProfilePage() {
                         <h2>Basic Info</h2>
                         <div className={styles.grid}>
                             <div className={styles.field}>
-                                <label>Full Name</label>
+                                <label htmlFor="full_name">Full Name</label>
                                 <input
+                                    id="full_name"
                                     name="full_name"
                                     defaultValue={profile?.full_name || ""}
                                     placeholder="e.g. Jane Doe"
                                 />
                             </div>
                             <div className={styles.field}>
-                                <label>Linked In URL</label>
+                                <label htmlFor="linkedin_url">Linked In URL</label>
                                 <input
+                                    id="linkedin_url"
                                     name="linkedin_url"
                                     defaultValue={profile?.linkedin_url || ""}
                                     placeholder="https://linkedin.com/in/..."
@@ -69,8 +71,8 @@ export default async function ProfilePage() {
                         <h2>Columbia Affiliation</h2>
                         <div className={styles.grid}>
                             <div className={styles.field}>
-                                <label>School</label>
-                                <select name="school" defaultValue={profile?.school || ""}>
+                                <label htmlFor="school">School</label>
+                                <select id="school" name="school" defaultValue={profile?.school || ""}>
                                     <option value="">Select a school...</option>
                                     <option value="CC">Columbia College</option>
                                     <option value="SEAS">Fu Foundation School of Engineering (SEAS)</option>
@@ -96,8 +98,9 @@ export default async function ProfilePage() {
                                 </select>
                             </div>
                             <div className={styles.field}>
-                                <label>Class Year</label>
+                                <label htmlFor="class_year">Class Year</label>
                                 <input
+                                    id="class_year"
                                     name="class_year"
                                     defaultValue={profile?.class_year || ""}
                                     placeholder="e.g. 2015"
@@ -110,16 +113,18 @@ export default async function ProfilePage() {
                         <h2>Professional</h2>
                         <div className={styles.grid}>
                             <div className={styles.field}>
-                                <label>Industry</label>
+                                <label htmlFor="industry">Industry</label>
                                 <input
+                                    id="industry"
                                     name="industry"
                                     defaultValue={profile?.industry || ""}
                                     placeholder="e.g. Finance, Tech, Healthcare"
                                 />
                             </div>
                             <div className={styles.field}>
-                                <label>Current Company / Org</label>
+                                <label htmlFor="company">Current Company / Org</label>
                                 <input
+                                    id="company"
                                     name="company"
                                     defaultValue={profile?.company || ""}
                                     placeholder="e.g. Google"
@@ -131,8 +136,9 @@ export default async function ProfilePage() {
                     <div className={styles.section}>
                         <h2>Bio</h2>
                         <div className={styles.field}>
-                            <label>Short Bio</label>
+                            <label htmlFor="bio">Short Bio</label>
                             <textarea
+                                id="bio"
                                 name="bio"
                                 rows={4}
                                 defaultValue={profile?.bio || ""}
