@@ -74,6 +74,19 @@ Supabase stores extended user profiles and application data not managed by Clerk
   - Light Blue: `var(--columbia-light-blue)`
   - Red: `var(--accent-red)`
 
+## Deployment
+
+See `DEPLOYMENT.md` for detailed instructions on deploying to Netlify, including:
+- Environment variable configuration
+- Clerk production setup
+- Supabase RLS policies
+- Custom domain configuration
+- Production checklist
+
+**Key files:**
+- `netlify.toml` - Netlify build configuration
+- `next.config.ts` - Next.js production optimizations
+
 ## TODO
 
 - Re-implement "Streams" pages.
