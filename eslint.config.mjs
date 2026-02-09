@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Legacy/build artifacts:
+    "legacy_jekyll/**",
+    "_site/**",
+    ".jekyll-cache/**",
   ]),
 ]);
 
