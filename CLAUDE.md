@@ -4,8 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Columbia University Africa Alumni (CU-AA)** - A modern web application for the CU-AA community.
-This project has been migrated from a Jekyll static site to a **Next.js** application to support rich interactive features (Directory, Auth, Member Area).
+**Columbia University Africa Alumni (CU-AA)** - A web application for the CU-AA community, supporting rich interactive features (Directory, Auth, Member Area).
 
 **Stack:**
 - **Framework:** Next.js 14+ (App Router)
@@ -39,7 +38,6 @@ npm run lint
 - **`src/utils/supabase/`**: Supabase Client & Server utilities.
 - **`components/`**: Reusable React components.
 - **`public/assets/`**: Static assets (images, icons).
-- **`legacy_jekyll/`**: Archive of the previous Jekyll site (Reference only).
 
 ## Clerk Setup (Authentication)
 
@@ -76,11 +74,6 @@ Supabase stores extended user profiles and application data not managed by Clerk
   - Light Blue: `var(--columbia-light-blue)`
   - Red: `var(--accent-red)`
 
-## Migration Status
+## TODO
 
-- **Phase 1 (Done):** Scaffolding Next.js, migrating Global CSS.
-- **Phase 2 (Done):** Integrate Supabase for database.
-- **Phase 3 (Done):** Implement Navbar, Footer, and basic Pages.
-- **Phase 4 (Done):** Re-implement "Directory".
-- **Phase 5 (Done):** Migrate auth from Supabase Auth to Clerk.
-- **Phase 6 (TODO):** Re-implement "Streams" pages.
+- Re-implement "Streams" pages.
