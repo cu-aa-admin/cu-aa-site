@@ -69,16 +69,15 @@ description: Learn about Columbia University Africa Alumni - our mission to conn
           Our activities center around creating platforms for engagement and action:
         </p>
         <ul class="activity-list">
-          <li><strong>Community Blog:</strong> A space for alumni to share perspectives on African issues, 
+          <li><strong>Group Chat:</strong> A space for alumni to share perspectives on African issues, 
           propose solutions, and engage in constructive debate</li>
           <li><strong>Mentorship Program:</strong> Connecting experienced alumni with emerging leaders to 
           foster professional and personal growth</li>
-          <li><strong>Discussion Forums:</strong> Regular virtual and in-person gatherings to discuss 
+          <li><strong>Learning and Discussion:</strong> Regular virtual and in-person gatherings to discuss 
           specific topics affecting African countries</li>
-          <li><strong>Solution Labs:</strong> Working groups that develop actionable proposals for 
-          addressing identified challenges</li>
           <li><strong>Resource Sharing:</strong> Creating a repository of knowledge, contacts, and 
           opportunities for our community</li>
+          <li><strong>Social Media:</strong> Create articles relevant to Africa</li>
         </ul>
       </div>
 
